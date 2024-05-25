@@ -1,4 +1,3 @@
-
 #' Download World Malaria Report PDFs
 #'
 #' @param years which years to download pdfs

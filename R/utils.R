@@ -7,7 +7,7 @@
 #' @param col_na_when_region number/name of a reference column to use which is NA iff the `WHO region\\nCountry/area` column is a region. If NA (the default), then the `WHO region\\nCountry/area` column is a region iff contains no lower case letters.
 #' @param fill_down_first if TRUE (the default), fill down the region/area column before splitting the region and area names.
 #'
-#' After much thought I highly recommend setting `col_na_when_region` to NA and using the `fill_down_first` option.
+#' I highly recommend setting `col_na_when_region` to NA and using the `fill_down_first` option.
 #'
 #' @return the dataframe with the `col_region_area` column split into `region_name` and `area_name` columns.
 #' @export
