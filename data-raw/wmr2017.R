@@ -1,18 +1,6 @@
 # This file just brings the data from the 2017 World Malaria Report into R
-# downloadData.R fetches the data from the WHO website and unzips it to a local
-# directory. This script reads the data from that directory.
-
-# I think after doing a few years we will see patterns, write helper functions,
-# and rewrite some of this flow. Immediately I'm thinking of a function which
-# deals with separating the "Who region/Country/area" column, and another which
-# converts to iso3 codes.
-
-# The idea is that this will become part of the data-raw scripts which will
-# generate the tidy data sets for the package. For now we have completed the
-# web->disk part and want to make sure we are getting the disk->R part right.
-# After that we can go from R->tidy data sets and include helper functions.
-# Note: Data from 2017-2023 are about 6MB zipped and 14MB unzipped. This is
-# small enough to include in the package.
+# `ensureRawDataExists` fetches the data from the WHO website and unzips it to a
+# local directory. This script reads the data from that directory.
 
 # Documentation from WHO World Malaria Report:
 # Annexes
@@ -41,15 +29,19 @@
 # >> J. Reported malaria deaths, 2010–2016
 
 get_wmr2017 <- function() {
+  # First we need to ensure the unzipped annex file exists:
+  source('data-raw/downloadData.R')
+  fileTree <- ensureRawDataExists(2017)
+  basePath <- names(fileTree)[[1]]
   # TODO: Remove footnotes in column names
 
-  wmr2017a <- readxl::read_excel("wmr2017-excel-annexes/wmr2017-annex-table-a.xls", range = "A2:Q102") |>
+  wmr2017a <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-a.xls"), range = "A2:Q102") |>
     split_who_region(col_region_area=1, col_na_when_region=NA)
 
-  wmr2017b <- readxl::read_excel("wmr2017-excel-annexes/wmr2017-annex-table-b.xls", range = "A2:F102") |>
+  wmr2017b <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-b.xls"), range = "A2:F102") |>
     split_who_region(col_region_area=1, col_na_when_region=NA)
 
-  wmr2017c <- readxl::read_excel("wmr2017-excel-annexes/wmr2017-annex-table-c.xls",
+  wmr2017c <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-c.xls"),
                                  range = "A3:O286",
                                  col_names = c("WHO region\nCountry/Area",
                                                "Year",
@@ -71,10 +63,10 @@ get_wmr2017 <- function() {
   # Translate the footnotes into a boolean column
   wmr2017c[,"Budget not expenditure"] <- !is.na(wmr2017c[,"Budget not expenditure"])
 
-  wmr2017d <- readxl::read_excel("wmr2017-excel-annexes/wmr2017-annex-table-d.xls", range = "A1:I294") |>
+  wmr2017d <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-d.xls"), range = "A1:I294") |>
     split_who_region()
 
-  wmr2017e <- readxl::read_excel("wmr2017-excel-annexes/wmr2017-annex-table-e.xlsx",
+  wmr2017e <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-e.xlsx"),
                                  sheet="DATA", range="A6:Q106",
                                  col_names = c("WHO region/Country/area", "Source",
                                                "Households with at least one insecticide-treated mosquito net (ITN)",
@@ -94,7 +86,7 @@ get_wmr2017 <- function() {
   # Note: Might want to bring in Region because this just has Country/area now
 
   lup <- c("Lower", "Point", "Upper")
-  wmr2017f <- readxl::read_excel("wmr2017-excel-annexes/wmr2017-annex-table-f.xlsx",
+  wmr2017f <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-f.xlsx"),
                                  range="A3:J695", sheet="Burden",
                                  col_names = c(
                                    "WHO region/Country/area",
@@ -110,7 +102,7 @@ get_wmr2017 <- function() {
   wmr2017fa <- wmr2017f  # confirmed with all.equal
   # Note: fb has 2 sheets. The first is a pivot of the second. We will read the
   # second since it is more detailed.
-  wmr2017fb <- readxl::read_excel("wmr2017-excel-annexes/wmr2017-annex-table-f-b.xlsx",
+  wmr2017fb <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-f-b.xlsx"),
                                   range="A2:D1752", sheet=2,
                                   col_names <- c(
                                     "WHO Region",
@@ -121,7 +113,7 @@ get_wmr2017 <- function() {
   # Following the convention that WHO REGION is uppercase
   wmr2017fb$`WHO Region` <- toupper(wmr2017fb$`WHO Region`)
 
-  wmr2017g <- readxl::read_excel("wmr2017-excel-annexes/wmr2017-annex-table-g.xls",
+  wmr2017g <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-g.xls"),
                                  range="A4:K100",
                                  col_names = c(
                                    "WHO region Country/area",
@@ -144,7 +136,7 @@ get_wmr2017 <- function() {
   # =SUM(B5:B50)-B46 ; =SUM(B52:B70) ; =SUM(B72:B79) ; =SUM(B81:B89) ; =SUM(B91:B100)
   # Conditional format applies to =$L$105:$U$109 ; Cell value not equals `=B105`
 
-  wmr2017h <- readxl::read_excel("wmr2017-excel-annexes/wmr2017-annex-table-h.xls",
+  wmr2017h <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-h.xls"),
                                  range="A2:I631",
                                  col_names = c(
                                    "WHO region/Country/area",
@@ -155,7 +147,7 @@ get_wmr2017 <- function() {
   # NOTE: Tanzania, Mainland and Zanzibar are split again
   # I did not check the Regional Summary
 
-  wmr2017i <- readxl::read_excel("wmr2017-excel-annexes/wmr2017-annex-table-i.xls",
+  wmr2017i <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-i.xls"),
                                  range="A2:I423",
                                  col_names = c(
                                    "WHO region/Country/area",
@@ -164,7 +156,7 @@ get_wmr2017 <- function() {
                                  )) |>
     split_who_region()
 
-  wmr2017j <- readxl::read_excel("wmr2017-excel-annexes/wmr2017-annex-table-j.xls",
+  wmr2017j <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-j.xls"),
                                  range="A2:H111",
                                  col_names = c(
                                    "WHO region/Country/area",
