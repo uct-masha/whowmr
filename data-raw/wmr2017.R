@@ -1,9 +1,9 @@
-# This file just brings the data from the 2017 World Malaria Report into R
-# `ensureRawDataExists` fetches the data from the WHO website and unzips it to a
-# local directory. This script reads the data from that directory.
+# The downloadData.R file exposes `ensureRawDataExists` which fetches raw data
+# from the WHO website and unzips it to a local directory.
+# This file brings the unzipped data from the 2017 World Malaria Report into R
+# and saves it as a dataset in this package.
 
-# Documentation from WHO World Malaria Report:
-# Annexes
+# Annex overview from WHO World Malaria Report 2017:
 # Annex 1 - Data sources and methods
 # Annex 2 - Regional profiles
 # >> A. West Africa
