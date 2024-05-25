@@ -10,7 +10,7 @@ Description: The World Malaria Report is a document that has been released
     more readily usable in R. For example, a common pattern in the annexes is
     to have a `WHO Region/Country/Area` column which this pattern splits into
     multiple columns so that the user can more easily work with the data.
-License: What license is it under?
+License: CC0
 Encoding: UTF-8
 LazyData: true
 Imports: 
