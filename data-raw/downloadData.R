@@ -2,12 +2,12 @@
 # downloaded locally. This allows development to be done offline without needing
 # to constantly use the WHO servers. The local copies are not stored in the
 # package or repository however, since they are available from the WHO website.
-# Other scripts will ensure the local copy of the data is processed and stored.
+# These functions are meant to be used in the wmr20xx.R scripts which ensure
+# that the local copy of the data is processed and stored.
 
 # Note: Data from 2017-2023 are about 6MB zipped and 14MB unzipped.
 
 library(checkmate) # assertions
-library(readxl) # read_excel
 library(zip) # unzip
 
 ensureAnnexRawDataExists <- function(url, filename) {
