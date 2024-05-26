@@ -3,8 +3,7 @@
 #' Annex data from the World Health Organization World Malaria Report 2017
 #'
 #'
-#' @format ## `wmr2017`
-#' A list containing a tibble for each item in the annex:
+#' @format A list containing a tibble for each item in the annex:
 #' \describe{
 #'   \item{wmr2017a}{Policy Adoption, 2016}
 #'   \item{wmr2017b}{Antimalarial drug policy, 2016}
