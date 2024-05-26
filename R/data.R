@@ -1,3 +1,6 @@
+#' @importFrom tibble tibble
+NULL
+
 #' World Health Organization World Malaria Report 2017
 #'
 #' Annex data from the World Health Organization World Malaria Report 2017
