@@ -145,6 +145,7 @@ get_wmr2017 <- function() {
     dplyr::mutate(`WHO Region` = toupper(`WHO Region`))
 
   # wmr2017g ####
+  pc <- c("Presumed", "Confirmed")
   wmr2017g <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-g.xls"),
                                  range="A4:K100",
                                  col_names = c(
@@ -153,11 +154,9 @@ get_wmr2017 <- function() {
                                    "At risk (low + high)",
                                    "At risk (high)",
                                    "Number of people living in active foci",
-                                   paste(c(
-                                     "Public sector",
-                                     "Private sector",
-                                     "Community level"),
-                                     rep(c("Presumed", "Confirmed"), 3))
+                                   paste0("Public sector ", pc),
+                                   paste0("Private sector ", pc),
+                                   paste0("Community level ", pc)
                                  )) |>
     whowmr::split_who_region() |>
   # NOTE: Tanzania is split into Mainland and Zanzibar
