@@ -84,7 +84,7 @@ get_wmr2017 <- function() {
 
   # wmr2017d ####
   wmr2017d <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-d.xls"), range = "A1:I294") |>
-    whowmr::split_who_region() |>
+    whowmr::split_who_region(col_region_area=1, col_na_when_region=NA) |>
     # column 7 is irs coverage and includes <1 so we impose no parsing to numeric there
     dplyr::mutate(dplyr::across(setdiff(4:10,7), ~as.numeric(stringr::str_replace_all(.x,pattern = "[-']",replacement = ""))))
 
@@ -120,7 +120,7 @@ get_wmr2017 <- function() {
                                    "Blank2",
                                    paste0("Deaths_",lup)
                                  )) |>
-    whowmr::split_who_region() |>
+    whowmr::split_who_region(col_region_area=1, col_na_when_region=NA) |>
     dplyr::select(!dplyr::starts_with("Blank")) |>
     # Some cells have, eg, <=100 cases and we don't want to impose parsing there
     # so the user can interpret that as they wish. To maintain consistent
@@ -158,7 +158,7 @@ get_wmr2017 <- function() {
                                    paste0("Private sector ", pc),
                                    paste0("Community level ", pc)
                                  )) |>
-    whowmr::split_who_region() |>
+    whowmr::split_who_region(col_region_area=1, col_na_when_region=NA) |>
   # NOTE: Tanzania is split into Mainland and Zanzibar
   #       When making the summary table do not double count Tanzania
   # Also the summary table A104:K109 differs in Pub/Com Presumed cases for the Americas
@@ -188,7 +188,7 @@ get_wmr2017 <- function() {
                                                        .default = `WHO region/Country/area`
     )) |>
     # Note that EUROPEAN region is uncommon in other datasets
-    whowmr::split_who_region() |>
+    whowmr::split_who_region(col_region_area=1, col_na_when_region=NA) |>
     dplyr::mutate(across(4:10, ~as.numeric(stringr::str_replace(.x,"-",""))))
   # NOTE: Tanzania, Mainland and Zanzibar are split again
   # I did not check the Regional Summary
@@ -201,7 +201,7 @@ get_wmr2017 <- function() {
                                    "Species",
                                    2010:2016
                                  )) |>
-    whowmr::split_who_region() |>
+    whowmr::split_who_region(col_region_area=1, col_na_when_region=NA) |>
     dplyr::mutate(dplyr::across(4:10, ~as.numeric(stringr::str_replace(.x,"-",""))))
 
   # wmr2017j ####
@@ -211,7 +211,7 @@ get_wmr2017 <- function() {
                                    "WHO region/Country/area",
                                    2010:2016
                                  )) |>
-    whowmr::split_who_region() |>
+    whowmr::split_who_region(col_region_area=1, col_na_when_region=NA) |>
     dplyr::mutate(dplyr::across(3:9, ~as.numeric(stringr::str_replace(.x,"-",""))))
 
   # combined ####
