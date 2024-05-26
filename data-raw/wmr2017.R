@@ -91,7 +91,7 @@ get_wmr2017 <- function() {
   # wmr2017e ####
   wmr2017e <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-e.xlsx"),
                                  sheet="DATA", range="A6:Q106",
-                                 col_names = c("WHO region/Country/area", "Source",
+                                 col_names = c("Country", "Source",
                                                "Households with at least one insecticide-treated mosquito net (ITN)",
                                                "Households with at least one insecticide-treated mosquito net (ITN) for every two persons who stayed in the household the previous night",
                                                "Households with indoor residual spraying (IRS) in last 12 months",
@@ -106,7 +106,7 @@ get_wmr2017 <- function() {
                                                "Children with fever who had blood taken from a finger or heel for testing",
                                                "Children who took any ACT", "Children with hemoglobin lower than 8.0 g/dl",
                                                "Malaria prevalence according to microscopy"))
-  # Note: Might want to bring in Region because this just has Country/area now
+  # Note: This dataset does not include a WHO Region column
 
   # wmr2017f ####
   lup <- c("Lower", "Point", "Upper")
