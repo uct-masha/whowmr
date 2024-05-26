@@ -3,7 +3,7 @@
 # This file brings the unzipped data from the 2017 World Malaria Report into R
 # and saves it as a dataset in this package.
 
-# Annex overview from WHO World Malaria Report 2017:
+# Annex overview from WHO World Malaria Report 2017 page 65:
 # Annex 1 - Data sources and methods
 # Annex 2 - Regional profiles
 # >> A. West Africa
@@ -34,13 +34,27 @@ get_wmr2017 <- function() {
   fileTree <- ensureRawDataExists(2017)
   basePath <- names(fileTree)[[1]]
   # TODO: Remove footnotes in column names
+  # TODO: Remove footnotes in cell values
 
+  # wmr2017a ####
+  to_T_F_NA <- Vectorize(function(x) {
+    if(is.na(x)) return(NA)
+    if(x=="Y") return(T)
+    if(x=="N") return(F)
+    NA
+  })
   wmr2017a <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-a.xls"), range = "A2:Q102") |>
-    split_who_region(col_region_area=1, col_na_when_region=NA)
+    whowmr::split_who_region(col_region_area=1, col_na_when_region=NA) |>
+    dplyr::mutate(dplyr::across(3:18, to_T_F_NA)) |>
+    dplyr::filter(`Country/area`!="United Republic of Tanzania3")
 
+  # wmr2017b ####
   wmr2017b <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-b.xls"), range = "A2:F102") |>
-    split_who_region(col_region_area=1, col_na_when_region=NA)
+    whowmr::split_who_region(col_region_area=1, col_na_when_region=NA) |>
+    dplyr::rename(`Uncomplicated unconfirmed`=`Uncomplicated\nunconfirmed`,
+                  `Uncomplicated confirmed`=`Uncomplicated\nconfirmed`)
 
+  # wmr2017c ####
   wmr2017c <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-c.xls"),
                                  range = "A3:O286",
                                  col_names = c("WHO region\nCountry/Area",
@@ -59,13 +73,22 @@ get_wmr2017 <- function() {
                                                "Country_WHO",
                                                "Country_UNICEF",
                                                "Country_Other contributions")) |>
-    split_who_region(col_region_area=1, col_na_when_region=NA)
-  # Translate the footnotes into a boolean column
-  wmr2017c[,"Budget not expenditure"] <- !is.na(wmr2017c[,"Budget not expenditure"])
+    whowmr::split_who_region(col_region_area=1, col_na_when_region=NA) |>
+    dplyr::mutate(
+           # Translate the footnotes into a boolean column
+           `Budget not expenditure`=!is.na(`Budget not expenditure`),
+           # Some cells (eg Pakistan 2016) reported eg "16’400’000"
+           # which won't parse well, so we clean that up before parsing:
+           dplyr::across(setdiff(4:16,9),
+                  ~as.numeric(stringr::str_replace_all(.x,"[’']+",""))))
 
+  # wmr2017d ####
   wmr2017d <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-d.xls"), range = "A1:I294") |>
-    split_who_region()
+    whowmr::split_who_region() |>
+    # column 7 is irs coverage and includes <1 so we impose no parsing to numeric there
+    dplyr::mutate(dplyr::across(setdiff(4:10,7), ~as.numeric(stringr::str_replace_all(.x,pattern = "[-']",replacement = ""))))
 
+  # wmr2017e ####
   wmr2017e <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-e.xlsx"),
                                  sheet="DATA", range="A6:Q106",
                                  col_names = c("WHO region/Country/area", "Source",
@@ -85,6 +108,7 @@ get_wmr2017 <- function() {
                                                "Malaria prevalence according to microscopy"))
   # Note: Might want to bring in Region because this just has Country/area now
 
+  # wmr2017f ####
   lup <- c("Lower", "Point", "Upper")
   wmr2017f <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-f.xlsx"),
                                  range="A3:J695", sheet="Burden",
@@ -96,10 +120,17 @@ get_wmr2017 <- function() {
                                    "Blank2",
                                    paste0("Deaths_",lup)
                                  )) |>
-    split_who_region()
-  wmr2017f <- wmr2017f[,!grepl(x=colnames(wmr2017f),"^Blank")]
+    whowmr::split_who_region() |>
+    dplyr::select(!dplyr::starts_with("Blank")) |>
+    # Some cells have, eg, <=100 cases and we don't want to impose parsing there
+    # so the user can interpret that as they wish. To maintain consistent
+    # formatting then, we just ensure Cases/Deaths columns are all characters.
+    dplyr::mutate(dplyr::across(4:9, as.character))
 
+  # wmr2017fa ####
   wmr2017fa <- wmr2017f  # confirmed with all.equal
+
+  # wmr2017fb ####
   # Note: fb has 2 sheets. The first is a pivot of the second. We will read the
   # second since it is more detailed.
   wmr2017fb <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-f-b.xlsx"),
@@ -109,10 +140,11 @@ get_wmr2017 <- function() {
                                     "Country/area",
                                     "Year",
                                     "Population at Risk"
-                                  ))
-  # Following the convention that WHO REGION is uppercase
-  wmr2017fb$`WHO Region` <- toupper(wmr2017fb$`WHO Region`)
+                                  )) |>
+    # Following the convention that WHO REGION is uppercase
+    dplyr::mutate(`WHO Region` = toupper(`WHO Region`))
 
+  # wmr2017g ####
   wmr2017g <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-g.xls"),
                                  range="A4:K100",
                                  col_names = c(
@@ -127,7 +159,7 @@ get_wmr2017 <- function() {
                                      "Community level"),
                                      rep(c("Presumed", "Confirmed"), 3))
                                  )) |>
-    split_who_region()
+    whowmr::split_who_region() |>
   # NOTE: Tanzania is split into Mainland and Zanzibar
   #       When making the summary table do not double count Tanzania
   # Also the summary table A104:K109 differs in Pub/Com Presumed cases for the Americas
@@ -135,7 +167,9 @@ get_wmr2017 <- function() {
   # I confirmed all other values are the same using
   # =SUM(B5:B50)-B46 ; =SUM(B52:B70) ; =SUM(B72:B79) ; =SUM(B81:B89) ; =SUM(B91:B100)
   # Conditional format applies to =$L$105:$U$109 ; Cell value not equals `=B105`
+    dplyr::mutate(dplyr::across(4:12, ~as.numeric(stringr::str_replace(.x,"-",""))))
 
+  # wmr2017h ####
   wmr2017h <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-h.xls"),
                                  range="A2:I631",
                                  col_names = c(
@@ -143,10 +177,24 @@ get_wmr2017 <- function() {
                                    "Variable",
                                    2010:2016
                                  )) |>
-    split_who_region()
+    # In this file the WHO Region was not entered correctly. We manually add it
+    # here:
+    dplyr::mutate(`WHO region/Country/area`=dplyr::case_match(seq_along(`WHO region/Country/area`)+1,
+                                                         2 ~ "AFRICAN", # Algeria:Zimbabwe
+                                                       285 ~ "AMERICAS", # Argentina:Venezuela
+                                                       412 ~ "EASTERN MEDITERRANEAN", # Afghanistan:Yemen
+                                                       461 ~ "EUROPEAN", # Armenia:Uzbekistan
+                                                       510 ~ "SOUTH-EAST ASIA", # Bangladesh:Timor-Leste
+                                                       571 ~ "WESTERN PACIFIC", # Cambodia:Viet Nam
+                                                       .default = `WHO region/Country/area`
+    )) |>
+    # Note that EUROPEAN region is uncommon in other datasets
+    whowmr::split_who_region() |>
+    dplyr::mutate(across(4:10, ~as.numeric(stringr::str_replace(.x,"-",""))))
   # NOTE: Tanzania, Mainland and Zanzibar are split again
   # I did not check the Regional Summary
 
+  # wmr2017i ####
   wmr2017i <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-i.xls"),
                                  range="A2:I423",
                                  col_names = c(
@@ -154,15 +202,20 @@ get_wmr2017 <- function() {
                                    "Species",
                                    2010:2016
                                  )) |>
-    split_who_region()
+    whowmr::split_who_region() |>
+    dplyr::mutate(dplyr::across(4:10, ~as.numeric(stringr::str_replace(.x,"-",""))))
 
+  # wmr2017j ####
   wmr2017j <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-j.xls"),
                                  range="A2:H111",
                                  col_names = c(
                                    "WHO region/Country/area",
                                    2010:2016
                                  )) |>
-    split_who_region()
+    whowmr::split_who_region() |>
+    dplyr::mutate(dplyr::across(3:9, ~as.numeric(stringr::str_replace(.x,"-",""))))
+
+  # combined ####
   list(
     # Annex 3
     # A: Policy Adoption, 2016
