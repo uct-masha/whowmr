@@ -1,5 +1,5 @@
-# The downloadData.R file exposes `ensureRawDataExists` which fetches raw data
-# from the WHO website and unzips it to a local directory.
+# The `ensure_annex_dirs_exist` function fetches raw data from the WHO website
+# and unzips it to a local directory.
 # This file brings the unzipped data from the 2017 World Malaria Report into R
 # and saves it as a dataset in this package.
 

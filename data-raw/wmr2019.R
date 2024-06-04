@@ -1,5 +1,5 @@
-# The downloadData.R file exposes `ensureRawDataExists` which fetches raw data
-# from the WHO website and unzips it to a local directory.
+# The `ensure_annex_dirs_exist` function fetches raw data from the WHO website
+# and unzips it to a local directory.
 # This file brings the unzipped data from the 2019 World Malaria Report into R
 # and saves it as a dataset in this package.
 
@@ -242,8 +242,10 @@ get_wmr2019 <- function() {
                       )
   )
 
-  wmr2019eb <- readxl::read_excel(file.path(basePath,"wmr2019-annex-table-3-e-b.xls"),
-                                  sheet="Annex", range="A5:Z25",
+  # wmr2019eb ####
+  wmr2019eb <-  readxl::read_excel(file.path(basePath,"wmr2019-annex-table-3-e-b.xls"),
+                                  sheet="Annex",
+                                  range="A5:Z25",
                                   na = c("", "–"),
                                   # Major names:
                                   # "Fever prevalence", "Health sector where treatment was sought", "Diagnostic testing coverage in each health sector", "Antimalarial treatment coverage in each health sector", "ACT use among antimalarial treatment in each health sector"
@@ -290,7 +292,7 @@ get_wmr2019 <- function() {
                       rows = 20,
                       cols = 27,
                       unique_values = list(
-                        `WHO Region` = 1,
+                        `WHO Region` = 1, # Just AFRICAN region in this file
                         `Country/area` = 20
                       ),
                       na_values = list(
@@ -318,12 +320,14 @@ get_wmr2019 <- function() {
                                  )) |>
     dplyr::mutate(`WHO region`=toupper(`WHO region`))
 
+  ##  WMR2019F Assertions: ####
   check_who_dataframe(df = wmr2019f,
                       rows = 967,
                       cols = 10,
                       unique_values = list(
                         `WHO region` = 6,
-                        `Country` = 108
+                        `Country` = 108,
+                        `Year` = 9
                       ),
                       na_values = list(
                         c(1, "Cases_Lower")
@@ -429,6 +433,7 @@ get_wmr2019 <- function() {
                       )
   )
 
+  # wmr2019i ####
   wmr2019i <- readxl::read_excel(file.path(basePath,"wmr2019-annex-table-3-i.xls"),
                                  range="A5:K502", na = c("", "-"),
                                  col_names = c(
