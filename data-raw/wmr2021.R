@@ -370,7 +370,7 @@ get_wmr2021 <- function() {
   # wmr2021h ####
   wmr2021h <- readxl::read_excel(file.path(basePath,"WMR2021_Annex5H.xlsx"),
                                  sheet="Sheet1",
-                                 range="A4:M707",
+                                 range="A4:M694",
                                  na = c("", "-"),
                                  col_names = c(
                                    "WHO region/Country/area",
@@ -380,21 +380,20 @@ get_wmr2021 <- function() {
     # Note that EUROPEAN region is less common in other datasets (less malaria)
     split_who_region(col_region_area=1)
 
+  ## WMR2021H Assertions: ####
   check_who_dataframe(df = wmr2021h,
-                      rows = 698,
+                      rows = 685,
                       cols = 14,
                       unique_values = list(
                         `WHO Region` = 6,
-                        `Country/area` = 112
+                        `Country/area` = 104
                       ),
                       na_values = list(
-                        c(686, "Variable")
+                        c(5, "2010")
                       ),
                       known_values = list(
-                        # Footnotes:
-                        c(195, "2020", "13636^"),
                         # The last possible value in the last column
-                        c(698, "2020", "172195067")
+                        c(685, "2020", "46")
                       )
   )
 
