@@ -8,6 +8,30 @@ NULL
 #'
 #' @format A list containing a tibble for each item in the annex:
 #' \describe{
+#'   \item{wmr2023_2}{p142: Number of ITNs distributed through campaigns in malaria endemic countries, 2020–2022.}
+#'   \item{wmr2023a}{p162: Policy adoption, 2022. Tanzania dropped.}
+#'   \item{wmr2023b}{p168: Antimalarial drug policy, 2022}
+#'   \item{wmr2023c}{p180: Funding for malaria control, 2020–2022}
+#'   \item{wmr2023d}{p186: Commodities distribution and coverage, 2020–2022}
+#'   \item{wmr2023ea}{p190: Household survey results, 2018–2022, compiled through STATcompiler. Suggestion: use [STATCompiler](https://statcompiler.com) or [rdhs](https://cran.r-project.org/web/packages/rdhs/index.html) package instead.}
+#'   \item{wmr2023eb}{p192: Household survey results, 2018–2022, compiled through WHO calculations}
+#'   \item{wmr2023f}{p232: Population denominator for case incidence and mortality rate, and estimated malaria cases and deaths, 2000-2022}
+#'   \item{wmr2023g}{p236: Population denominator for case incidence and mortality rate, and reported malaria cases by place of care, 2022. Be careful not to double count Tanzania which is split into Mainland and Zanzibar.}
+#'   \item{wmr2023h}{p260: Reported malaria cases by method of confirmation, 2010–2022}
+#'   \item{wmr2023i}{p280: Reported malaria cases by species, 2010–2022}
+#'   \item{wmr2023j}{p283: Reported malaria deaths, 2010–2022}
+#' }
+#' @source Report: \url{https://iris.who.int/bitstream/handle/10665/374472/9789240086173-eng.pdf?sequence=1}
+#' @source Annex: \url{https://cdn.who.int/media/docs/default-source/malaria/world-malaria-reports/wmr2023-excel-annexes.zip}
+"wmr2023"
+
+#' World Health Organization World Malaria Report 2022
+#'
+#' Annex data from the World Health Organization World Malaria Report 2022.
+#' Note that Tanzania is typically split into Mainland and Zanzibar
+#'
+#' @format A list containing a tibble for each item in the annex:
+#' \describe{
 #'   \item{wmr2022_2}{p150: Number of ITNs distributed through campaigns in malaria endemic countries, 2020–2022.}
 #'   \item{wmr2022a}{p170: Policy adoption, 2021. Tanzania dropped.}
 #'   \item{wmr2022b}{p174: Antimalarial drug policy, 2021}
