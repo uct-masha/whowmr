@@ -315,7 +315,7 @@ get_wmr2022 <- function() {
   who_regions <- c("African", "Americas", "Eastern Mediterranean", "European", "South-East Asia", "Western Pacific")
   wmr2022f <- readxl::read_excel(file.path(basePath,"WMR2022_Annex_4F.xlsx"),
                                  sheet="data",
-                                 range="A5:I2541",
+                                 range="A5:I2386",
                                  col_names = c(
                                    "WHO region/Country/area",
                                    "Year",
@@ -330,16 +330,16 @@ get_wmr2022 <- function() {
 
   ## WMR2022F Assertions: ####
   check_who_dataframe(df = wmr2022f,
-                      rows = 2398,
+                      rows = 2376,
                       cols = 10,
                       unique_values = list(
                         `WHO Region` = 6,
-                        `Country/area` = 109,
+                        `Country/area` = 108,
                         `Year` = 22
                       ),
                       known_values = list(
                         # The last possible value in the last column
-                        c(2398, "Deaths_Upper", "754000")
+                        c(2376, "Deaths_Upper", "-")
                       )
   )
 
@@ -394,12 +394,12 @@ get_wmr2022 <- function() {
   # wmr2022h ####
   wmr2022h <- readxl::read_excel(file.path(basePath,"WMR2022_Annex_4H.xlsx"),
                                  sheet="data",
-                                 range="A4:M719",
+                                 range="A4:N719",
                                  na = c("", "-"),
                                  col_names = c(
                                    "WHO region/Country/area",
                                    "Variable",
-                                   2010:2020
+                                   2010:2021
                                  )) |>
     # Note that EUROPEAN region is less common in other datasets (less malaria)
     split_who_region(col_region_area=1)
@@ -407,7 +407,7 @@ get_wmr2022 <- function() {
   ## WMR2022H Assertions: ####
   check_who_dataframe(df = wmr2022h,
                       rows = 710,
-                      cols = 14,
+                      cols = 15,
                       unique_values = list(
                         `WHO Region` = 6,
                         `Country/area` = 104
@@ -417,7 +417,7 @@ get_wmr2022 <- function() {
                       ),
                       known_values = list(
                         # The last possible value in the last column
-                        c(710, "2020", "46")
+                        c(710, "2021", "90")
                       )
   )
 
