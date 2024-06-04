@@ -1,6 +1,29 @@
 #' @importFrom tibble tibble
 NULL
 
+#' World Health Organization World Malaria Report 2019
+#'
+#' Annex data from the World Health Organization World Malaria Report 2019
+#' Note that Tanzania is typically split into Mainland and Zanzibar
+#'
+#' @format A list containing a tibble for each item in the annex:
+#' \describe{
+#'   \item{wmr2019a}{p114: Policy adoption, 2018. Tanzania dropped.}
+#'   \item{wmr2019b}{p118: Antimalarial drug policy, 2018}
+#'   \item{wmr2019c}{p120: Funding for malaria control, 2016–2018}
+#'   \item{wmr2019d}{p132: Commodities distribution and coverage, 2016–2018}
+#'   \item{wmr2019ea}{p138: Household survey results, 2015–2018, compiled through STATcompiler. Suggestion: use [STATCompiler](https://statcompiler.com) or [rdhs](https://cran.r-project.org/web/packages/rdhs/index.html) package instead.}
+#'   \item{wmr2019eb}{p140: Household survey results, 2015–2018, compiled through WHO calculations}
+#'   \item{wmr2019f}{p142: Population at risk and estimated malaria cases and deaths, 2010–2018}
+#'   \item{wmr2019g}{p158: Population at risk and reported malaria cases by place of care, 2018. Be careful not to double count Tanzania which is split into Mainland and Zanzibar.}
+#'   \item{wmr2019h}{p162: Reported malaria cases by method of confirmation, 2010–2018}
+#'   \item{wmr2019i}{p174: Reported malaria cases by species, 2010–2018}
+#'   \item{wmr2019j}{p184: Reported malaria deaths, 2010–2018}
+#' }
+#' @source Report: \url{https://iris.who.int/bitstream/handle/10665/330011/9789241565721-eng.pdf?sequence=1}
+#' @source Annex: \url{https://cdn.who.int/media/docs/default-source/malaria/world-malaria-reports/wmr2019-excel-annexes.zip}
+"wmr2019"
+
 #' World Health Organization World Malaria Report 2018
 #'
 #' Annex data from the World Health Organization World Malaria Report 2018

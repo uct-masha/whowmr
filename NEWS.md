@@ -20,3 +20,7 @@
   in the package.
 
 - Added some new internal functions and made some public ones internal too.
+
+# whowmr 1.2019.1
+
+- Included the 2019 dataset.

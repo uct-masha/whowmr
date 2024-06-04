@@ -1,6 +1,6 @@
 Package: whowmr
 Title: World Health Organization World Malaria Report Data
-Version: 0.2018.1
+Version: 1.2019.1
 Authors@R: 
     c(person(given = "Jared",
              family = "Norman",
