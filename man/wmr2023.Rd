@@ -3,7 +3,7 @@
 \docType{data}
 \name{wmr2023}
 \alias{wmr2023}
-\title{World Health Organization World Malaria Report 2022}
+\title{World Health Organization World Malaria Report 2023}
 \format{
 A list containing a tibble for each item in the annex:
 \describe{
@@ -30,7 +30,7 @@ Annex: \url{https://cdn.who.int/media/docs/default-source/malaria/world-malaria-
 wmr2023
 }
 \description{
-Annex data from the World Health Organization World Malaria Report 2022.
+Annex data from the World Health Organization World Malaria Report 2023.
 Note that Tanzania is typically split into Mainland and Zanzibar
 }
 \keyword{datasets}

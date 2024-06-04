@@ -1,9 +1,9 @@
 #' @importFrom tibble tibble
 NULL
 
-#' World Health Organization World Malaria Report 2022
+#' World Health Organization World Malaria Report 2023
 #'
-#' Annex data from the World Health Organization World Malaria Report 2022.
+#' Annex data from the World Health Organization World Malaria Report 2023.
 #' Note that Tanzania is typically split into Mainland and Zanzibar
 #'
 #' @format A list containing a tibble for each item in the annex:
