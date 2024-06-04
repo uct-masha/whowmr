@@ -85,9 +85,9 @@ get_wmr2019 <- function() {
 
   # wmr2019b ####
   wmr2019b <- readxl::read_excel(file.path(basePath,"wmr2019-annex-table-3-b.xls"),
-                                 sheet="DrugPolicy",  # There are hidden sheets
-                                 na = c("", "-"),
-                                 range = "A4:F105") |>
+                                 sheet="DrugPolicy", # There are hidden sheets
+                                 range = "A4:F105",
+                                 na = c("", "-")) |>
     split_who_region(col_region_area=1) |>
     dplyr::rename(`Uncomplicated unconfirmed`=`Uncomplicated\nunconfirmed`,
                   `Uncomplicated confirmed`=`Uncomplicated\nconfirmed`)
@@ -191,7 +191,8 @@ get_wmr2019 <- function() {
   # wmr2019e ####
   # This 2019 sheet uses some slightly different columns and the user should be aware of this.
   wmr2019ea <- readxl::read_excel(file.path(basePath,"wmr2019-annex-table-3-e-a.xls"),
-                                  sheet="Sheet1", range="A6:T44",
+                                  sheet="Sheet1",
+                                  range="A6:T44",
                                   col_names = c("WHO Region/Country/area", "Source",
                                                 paste("% of households with", c(
                                                   "at least one ITN",
@@ -397,8 +398,9 @@ get_wmr2019 <- function() {
     "5,8"="Figures reported for the public sector include cases detected at the community level and in the private sector. Incomplete laboratory data. This country has no presumed cases reported."
   )
   wmr2019h <- readxl::read_excel(file.path(basePath,"wmr2019-annex-table-3-h.xls"),
-                                 range="A7:V631", na = c("", "-"),
                                  sheet="Table H (CasesByConfirmation)",
+                                 range="A7:V631",
+                                 na = c("", "-"),
                                  col_names = c(
                                    "WHO region/Country/area",
                                    "Variable",

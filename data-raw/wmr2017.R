@@ -157,8 +157,8 @@ get_wmr2017 <- function() {
   # wmr2017d ####
   wmr2017d <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-d.xls"),
                                  sheet = "Presentation",
-                                 na="-",
-                                 range = "A1:I294") |>
+                                 range = "A1:I294",
+                                 na="-") |>
     split_who_region(col_region_area=1) |>
     # column 7 is irs coverage and includes <1 so we impose no parsing to numeric there
     try_make_numeric(setdiff(4:10,7),
@@ -191,7 +191,8 @@ get_wmr2017 <- function() {
 
   # wmr2017e ####
   wmr2017e <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-e.xlsx"),
-                                 sheet="Annex 4-E", range="A3:Q35",
+                                 sheet="Annex 4-E",
+                                 range="A3:Q35",
                                  c("WHO Region/Country/area", "Source",
                                    "% of HH that have at least one ITN",
                                    "% of HH with at least one ITN for every two persons who slept in the household the previous night",
@@ -311,8 +312,8 @@ get_wmr2017 <- function() {
   pc <- c("Presumed", "Confirmed")
   wmr2017g <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-g.xls"),
                                  sheet="CasesandDeaths",
-                                 na="-",
                                  range="A4:K100",
+                                 na="-",
                                  col_names = c(
                                    "WHO region Country/area",
                                    "UN population",
@@ -355,8 +356,8 @@ get_wmr2017 <- function() {
   # wmr2017h ####
   wmr2017h <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-h.xls"),
                                  sheet="Trend1",
-                                 na="-",
                                  range="A2:I631",
+                                 na="-",
                                  col_names = c(
                                    "WHO region/Country/area",
                                    "Variable",
@@ -402,8 +403,8 @@ get_wmr2017 <- function() {
   # wmr2017i ####
   wmr2017i <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-i.xls"),
                                  sheet="Trend2",
-                                 na="-",
                                  range="A2:I423",
+                                 na="-",
                                  col_names = c(
                                    "WHO region/Country/area",
                                    "Species",
@@ -434,8 +435,8 @@ get_wmr2017 <- function() {
   # wmr2017j ####
   wmr2017j <- readxl::read_excel(file.path(basePath,"wmr2017-annex-table-j.xls"),
                                  sheet="RepDeaths",
-                                 na="-",
                                  range="A2:H111",
+                                 na="-",
                                  col_names = c(
                                    "WHO region/Country/area",
                                    2010:2016

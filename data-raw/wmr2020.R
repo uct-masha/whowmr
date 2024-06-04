@@ -84,8 +84,8 @@ get_wmr2020 <- function() {
   # wmr2020b ####
   wmr2020b <- readxl::read_excel(file.path(basePath,"Annex 3 - B Antimalarial drug policy 2019 COPYEDIT.xlsx"),
                                  sheet="DrugPolicy",  # There are hidden sheets
-                                 na = c("", "-"),
-                                 range = "A4:F105") |>
+                                 range = "A4:F105",
+                                 na = c("", "-")) |>
     split_who_region(col_region_area=1) |>
     dplyr::rename(`Uncomplicated unconfirmed`=`Uncomplicated\r\nunconfirmed`,
                   `Uncomplicated confirmed`=`Uncomplicated\r\nconfirmed`)
@@ -180,8 +180,8 @@ get_wmr2020 <- function() {
   # wmr2020e ####
   wmr2020ea <- readxl::read_excel(file.path(basePath,"Annex 3 - Ea. HH survey results 2015-2019 STATcompiler-COPYEDIT.xlsx"),
                                   sheet="annex_3e",
-                                  na = c("", "-"),
                                   range="A6:T44",
+                                  na = c("", "-"),
                                   col_names = c("WHO Region/Country/area", "Source",
                                                 paste("% of households with", c(
                                                   "at least one ITN",
@@ -391,8 +391,9 @@ get_wmr2020 <- function() {
     "5,8"="Figures reported for the public sector include cases detected at the community level and in the private sector. Incomplete laboratory data. This country has no presumed cases reported."
   )
   wmr2020h <- readxl::read_excel(file.path(basePath,"Annex 3 - H. Reported malaria cases by method of confirmation, 2010–2019.xlsx"),
-                                 range="A6:L693", na = c("", "-"),
                                  sheet="AnnexH",
+                                 range="A6:L693",
+                                 na = c("", "-"),
                                  col_names = c(
                                    "WHO region/Country/area",
                                    "Variable",
