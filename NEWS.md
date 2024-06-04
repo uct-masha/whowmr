@@ -32,3 +32,7 @@
 # whowmr 1.2021.1
 
 - Included the 2021 dataset.
+
+# whowmr 1.2022.1
+
+- Included the 2022 dataset.
