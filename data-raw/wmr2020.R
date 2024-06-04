@@ -331,12 +331,9 @@ get_wmr2020 <- function() {
   # wmr2020g ####
   pcf <- c("Presumed", "Confirmed", "Footnotes")
   footnote_dict <- c(
-    "2"   = "Where national data for the United Republic of Tanzania are unavailable, refer to Mainland and Zanzibar.",
     "3"   = "Figures reported for the public sector include cases detected at the community level.",
     "4"   = "Figures reported for the public sector include cases detected in the private sector.",
-    "5"   = "Figures reported for the public sector include cases detected at the community level and in the private sector.",
-    "6"   = "Figures include all imported or non-human malaria cases; none of them being indigenous malaria cases.",
-    "5,6" = "Figures reported for the public sector include cases detected at the community level and in the private sector. Figures include all imported or non-human malaria cases; none of them being indigenous malaria cases."
+    "5"   = "Figures reported for the public sector include cases detected at the community level and in the private sector."
   )
   {
   # On my Windows machine the path was too long so I had to copy the file to a shorter path to read it:
@@ -381,15 +378,6 @@ get_wmr2020 <- function() {
   )
 
   # wmr2020h ####
-  # Note: hidden sheets
-  footnote_dict <- c(
-    "2"="In May 2013, South Sudan was reassigned to the WHO African Region (WHA resolution 66.21, https://apps.who.int/gb/ebwha/pdf_files/WHA66/A66_R21-en.pdf).",
-    "3"="Figures reported for the public sector include cases detected at the community level.",
-    "4"="Figures reported for the public sector include cases detected in the private sector.",
-    "5"="Figures reported for the public sector include cases detected at the community level and in the private sector.",
-    "5,6"="Figures reported for the public sector include cases detected at the community level and in the private sector. Figures include all imported or non-human malaria cases; none of them being indigenous malaria cases.",
-    "5,8"="Figures reported for the public sector include cases detected at the community level and in the private sector. Incomplete laboratory data. This country has no presumed cases reported."
-  )
   wmr2020h <- readxl::read_excel(file.path(basePath,"Annex 3 - H. Reported malaria cases by method of confirmation, 2010–2019.xlsx"),
                                  sheet="AnnexH",
                                  range="A6:L693",
