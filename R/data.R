@@ -3,7 +3,7 @@ NULL
 
 #' World Health Organization World Malaria Report 2019
 #'
-#' Annex data from the World Health Organization World Malaria Report 2019
+#' Annex data from the World Health Organization World Malaria Report 2019.
 #' Note that Tanzania is typically split into Mainland and Zanzibar
 #'
 #' @format A list containing a tibble for each item in the annex:
@@ -26,7 +26,7 @@ NULL
 
 #' World Health Organization World Malaria Report 2018
 #'
-#' Annex data from the World Health Organization World Malaria Report 2018
+#' Annex data from the World Health Organization World Malaria Report 2018.
 #' Note that Tanzania is typically split into Mainland and Zanzibar
 #'
 #' @format A list containing a tibble for each item in the annex:
@@ -48,7 +48,7 @@ NULL
 
 #' World Health Organization World Malaria Report 2017
 #'
-#' Annex data from the World Health Organization World Malaria Report 2017
+#' Annex data from the World Health Organization World Malaria Report 2017.
 #' Note that Tanzania is typically split into Mainland and Zanzibar
 #'
 #' @format A list containing a tibble for each item in the annex:

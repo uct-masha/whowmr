@@ -29,7 +29,7 @@ Annex: \url{https://cdn.who.int/media/docs/default-source/malaria/world-malaria-
 wmr2019
 }
 \description{
-Annex data from the World Health Organization World Malaria Report 2019
+Annex data from the World Health Organization World Malaria Report 2019.
 Note that Tanzania is typically split into Mainland and Zanzibar
 }
 \keyword{datasets}
