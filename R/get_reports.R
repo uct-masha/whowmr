@@ -7,8 +7,8 @@
 #' @export
 #'
 #' @examples
-#' getWMRPDFs()
-getWMRPDFs <- function(years=2017:2023, outdir='.') {
+#' get_reports()
+get_reports <- function(years=2017:2023, outdir='.') {
   urls <- list(w2023='https://iris.who.int/bitstream/handle/10665/374472/9789240086173-eng.pdf?sequence=1',
                w2022='https://iris.who.int/bitstream/handle/10665/365169/9789240064898-eng.pdf?sequence=1',
                w2021='https://iris.who.int/bitstream/handle/10665/350147/9789240040496-eng.pdf?sequence=1',
@@ -18,11 +18,17 @@ getWMRPDFs <- function(years=2017:2023, outdir='.') {
                w2017='https://iris.who.int/bitstream/handle/10665/259492/9789241565523-eng.pdf?sequence=1')
 
   # Download the pdfs
-  # if (!dir.exists(outdir)) dir.create(outdir)
   if (!grepl('/$', outdir)) outdir <- paste0(outdir,'/')
+  # if (!dir.exists(outdir)) dir.create(outdir)
   for (fname in names(urls)) {
     url <- urls[[fname]]
     fpath <- paste0(outdir, fname, '.pdf')
-    if (any(grepl(years,fname))&!file.exists(fpath)) download.file(url, fpath, mode='wb')
+    if (any(grepl(years,fname))&!file.exists(fpath)) {
+      tryCatch({
+        download.file(url, fpath, mode='wb')
+      }, error = function(e) {
+        stop(paste0("Failed to download ", url, " to ", fpath, ". Please check the URL and your internet connection."))
+      })
+    }
   }
 }

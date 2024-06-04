@@ -1,0 +1,152 @@
+---
+title: "Data Processing Notebook"
+output: rmarkdown
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(whowmr)
+```
+
+# WHO Annexes Data Processing Notes
+
+This document serves as a workspace for ongoing notes compiled during
+reviews of the WHO annexes. The purpose is twofold. Firstly, it is
+difficult to say in advance how comparable the various datasets
+contained within the annexes are across different years. Secondly, it is
+anticipated that many users will require joining datasets from various
+years to conduct analyses. Additionally, these notes aim to document
+common data processing steps. For instance, a frequently encountered
+column denoting "WHO Region/Country/Area" can be separated into distinct
+columns for each element which is useful.
+
+## Processing the `WHO Region/Country/Area` column
+
+The `WHO Region/Country/Area` column is a common column in WHO datasets.
+Usually the first row will give the name of the region, and the
+following rows will give the names of countries in that region. The row
+containing the region name will have no data in it. One exception to
+this structure is observed with Tanzania, where the column is further
+divided into `Mainland` and `Zanzibar`. In cases where Tanzania presents
+data in all three cases, straightforward calculations of totals may lead
+to duplicate counting of Tanzania's data due to this inclusion of
+sub-regions.
+
+A function is included in this package which attempts to split out the
+`WHO Region/Country/Area` column in a dataset. Anecdotally it seems the
+best approach is to label columns which are all upper-case characters as
+"WHO Region" and all other columns as "Country/Area".
+
+## Annex A: Policy logical columns
+
+In 2017, Annex A gives policy columns with `Y` if true, `N` if false,
+and either `-` or `NA`. There were no exceptions. The 2019:2023 reports
+use multiple values and should not be boolean but rather a factor.
+
+## Annex C: Funding
+
+In reviewing the data, a misspelling was identified in Column G
+"Government (NMP)" for the year 2017. Additionally, inconsistencies were
+found in the terminology used between 2017 and 2018, where "NMCP" was
+used instead of "NMP". Examination of data from 2019 onwards indicated
+consistent use of "NMP", and considering that not all countries
+participate in control programs, "NMP" was deemed the more accurate
+term. To ensure consistency, the column names in 2017 and 2018 were
+retrospectively changed to reflect this.
+
+Furthermore, analysis of the 2019 data revealed the presence of
+footnotes in the column following "Government (NMP)" which is different
+to 2017/2018 where this column has only one possible value. To account
+for the various potential interpretations of these footnotes, the column
+name was subsequently changed to "Government Footnotes" (altering
+backward compatibility of previous package versions). To reflect this
+significant change, the major version number was incremented when
+including 2019 data.
+
+## Annex E - malaria indicator surveys from StatCompiler
+
+This is the only Annex sheet without a "WHO Region/Country/area" column
+owing to the fact that it grabs country data specifically.
+
+The 2020 report contains a very useful sheet `annex_3e_with_links` which
+has some resize-hidden columns/rows and formulas which show how exactly
+how the calculations have been done. It is not difficult to use
+StatCompiler to reproduce the analysis for all indicator surveys and all
+countries with a single API call. A future version of this package could
+include a function to get all surveys making this set of sheets
+unnecessary. The above sheet would be very useful when writing such a
+function.
+
+### API Call
+
+The indicators used seem mostly consistent between 2018:2023 with the
+2017 containing a subset. Another exception is between 2018 and 2019
+some indicators changed (shown in red in the 2019 annex Ea). There's
+some further processing required (see Annex 3Ea in 2020 data) but the
+same indicators seem to be used between reports. Manually putting in the
+indicators used to generate the 2020 report in StatCompiler and
+monitoring the API request gives the following:
+
+```         
+https://api.dhsprogram.com/rest/dhs/data/all?countryIds=AO,BU,ZW,ZM&indicatorIds=ML_NETP_H_ITN,ML_NETP_H_IT2,ML_IRSM_H_IRS,ML_IRSM_H_IIR,ML_IRSM_H_I2I,ML_ITNA_P_ACC,ML_NETU_P_ITN,ML_ITNU_N_ITN,ML_NETW_W_ITN,ML_IPTP_W_3SP,ML_NETC_C_ITN,CN_ANMC_C_MOD,CN_ANMC_C_SEV,ML_PMAL_C_RDT,ML_FEVT_C_ADV,ML_FEVT_C_BLD,ML_FEVT_C_AML,ML_AMLD_C_ACT&returnFields=DataId,Indicator,SurveyId,IsPreferred,Value,SDRID,Precision,RegionId,SurveyYearLabel,SurveyType,SurveyYear,IndicatorOrder,DHS_CountryCode,CILow,CountryName,CharacteristicId,CharacteristicCategory,IndicatorId,CharacteristicOrder,CharacteristicLabel,ByVariableLabel,DenominatorUnweighted,DenominatorWeighted,CIHigh,IsTotal,ByVariableId,IndicatorType,IndicatorTotalId&perpage=4000&apiKey=DHSPRG-949817&lang=en&page=2
+```
+
+These `indicatorIds` will likely be useful when interacting with the
+API. The countries chosen seem to be iso2 codes. The
+[rdhs](https://docs.ropensci.org/rdhs/) package would probably be a good
+way to interact with the API. There are some package development ideas
+worth exploring in there also.
+
+### Rabbit hole: % of children \<5 years with fever in the past 2 weeks who took antimalarial drugs
+
+Also note the calculation for "Children with fever who took antimalarial
+drugs" since there are two variables "Three years preceding the survey"
+and "Five years preceding the survey". In the 2020 sheet a `VLOOKUP` is
+used which references a `Table2` which isn't a sheet but is included in
+the Excel file. Exporting that table indicates that "Three years" comes
+before the "Five years". That VLOOKUP asks for an Exact match (FALSE) so
+the first value should be picked but somehow the "Five years" value is
+being picked. It's probably best at this point to stop asking why and to
+just make a note of it here in case someone wants to look into it
+further for whatever reason.
+
+### Other notes
+
+The last column is under the major heading of "% of children \<5 years
+with fever in the past 2 weeks" with the heading of "who took an ACT
+among those who received any antimalarial". From sleuthing into the 2020
+data it seems that this pulls the MIS indicator "Children who took any
+ACT" whereas the previous indicators start with "Children with
+fever...". Following up on this however, the documentation for the
+denominator is "Children under age five with fever in the two weeks
+preceding the survey that received any anti-malarial drugs" for this
+indicator.
+
+## Footnotes
+
+There are many times where a cell will end in a number which links to a
+footnote. While removing such numbers could have resulted in more
+uniform and directly usable cells, the decision was made to generally
+retain them in this package. This prioritizes user engagement with the
+footnotes within the report, encouraging users to determine the
+appropriate handling of the data.
+
+For instance, the 2019 Annex 3C, covering funding information, includes
+a footnote for "Venezuela" specifying that government funding values are
+provided in local currency, not USD. Preserving this linked note
+discourages users from assuming USD values during analysis, a potential
+consequence of overlooking such crucial details.
+
+## NA values in columns
+
+It's most common to see "-" as meaning NA in a column. The footnotes
+usually indicate how to interpret this.

@@ -11,7 +11,7 @@ A list containing a tibble for each item in the annex:
 \item{wmr2017b}{p98: Antimalarial drug policy, 2016.}
 \item{wmr2017c}{p100: Funding for malaria control, 2014–2016.}
 \item{wmr2017d}{p112: Commodities distribution and coverage, 2014–2016.}
-\item{wmr2017e}{p118: Household survey results, 2014–2016. No WHO Region column.}
+\item{wmr2017e}{p118: Household survey results, 2014–2016. Suggestion: use \href{https://statcompiler.com}{STATCompiler} or \href{https://cran.r-project.org/web/packages/rdhs/index.html}{rdhs} package instead.}
 \item{wmr2017fa}{p120: Estimated malaria cases and deaths, 2010–2016. Some columns have, eg, "<1", and you should decide how to treat this.}
 \item{wmr2017fb}{p132: Population at risk for estimates of malaria cases and deaths, 2010–2016.}
 \item{wmr2017g}{p134: Population at risk and reported malaria cases by place of care, 2016. Be careful not to double count Tanzania which is split into Mainland and Zanzibar.}

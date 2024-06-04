@@ -23,3 +23,12 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 Depends: 
     R (>= 3.6)
+Suggests: 
+    knitr,
+    checkmate,
+    dplyr,
+    readxl,
+    stringr,
+    tidyr,
+    tidyselect,
+    zip

@@ -12,7 +12,7 @@ NULL
 #'   \item{wmr2018b}{p102: Antimalarial drug policy, 2017.}
 #'   \item{wmr2018c}{p104: Funding for malaria control, 2015–2017.}
 #'   \item{wmr2018d}{p116: Commodities distribution and coverage, 2015–2017.}
-#'   \item{wmr2018e}{p122: Household survey results, 2015–2017. No WHO Region column.}
+#'   \item{wmr2018e}{p122: Household survey results, 2015–2017. No WHO Region column. Suggestion: use [STATCompiler](https://statcompiler.com) or [rdhs](https://cran.r-project.org/web/packages/rdhs/index.html) package instead.}
 #'   \item{wmr2018f}{p124: Population at risk and estimated malaria cases and deaths, 2010–2017.}
 #'   \item{wmr2018g}{p138: Population at risk and reported malaria cases by place of care, 2017. Be careful not to double count Tanzania which is split into Mainland and Zanzibar.}
 #'   \item{wmr2018h}{p142: Reported malaria cases by method of confirmation, 2010–2017}
@@ -34,7 +34,7 @@ NULL
 #'   \item{wmr2017b}{p98: Antimalarial drug policy, 2016.}
 #'   \item{wmr2017c}{p100: Funding for malaria control, 2014–2016.}
 #'   \item{wmr2017d}{p112: Commodities distribution and coverage, 2014–2016.}
-#'   \item{wmr2017e}{p118: Household survey results, 2014–2016. No WHO Region column.}
+#'   \item{wmr2017e}{p118: Household survey results, 2014–2016. Suggestion: use [STATCompiler](https://statcompiler.com) or [rdhs](https://cran.r-project.org/web/packages/rdhs/index.html) package instead.}
 #'   \item{wmr2017fa}{p120: Estimated malaria cases and deaths, 2010–2016. Some columns have, eg, "<1", and you should decide how to treat this.}
 #'   \item{wmr2017fb}{p132: Population at risk for estimates of malaria cases and deaths, 2010–2016.}
 #'   \item{wmr2017g}{p134: Population at risk and reported malaria cases by place of care, 2016. Be careful not to double count Tanzania which is split into Mainland and Zanzibar.}
