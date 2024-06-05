@@ -19,11 +19,6 @@ stop_if_not_installed <- function(...) {
     }
   }
 }
-
-#'
-#' @param df a dataframe
-  }
-}
 # compare_splits <- function(df) {
 #   df1 <- split_who_region(df,col_region_area=1, col_na_when_region=2)
 #   df2 <- split_who_region(df,col_region_area=1, col_na_when_region=NA)
