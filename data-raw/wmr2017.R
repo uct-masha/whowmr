@@ -70,7 +70,9 @@ get_wmr2017 <- function() {
     ),
     known_values = list(
       # cell D50 is Zimbabwe and does not distribute ITNs through mass campaigns
-      list(46, "ITNs/ LLINs distributed through mass campaigns to all age groups", val = "Not implemented"),
+      list(46,
+           "ITNs/ LLINs distributed through mass campaigns to all age groups",
+           val = "Not implemented"),
       # cell A102 is "Viet Nam" and is in the Western Pacific region
       list(94, "WHO Region", val = "WESTERN PACIFIC"),
       list(94, "Country/area", val = "Viet Nam")
@@ -78,7 +80,8 @@ get_wmr2017 <- function() {
   )
 
   # wmr2017b ####
-  wmr2017b <- readxl::read_excel(file.path(basePath, "wmr2017-annex-table-b.xls"),
+  wmr2017b <- readxl::read_excel(file.path(basePath,
+                                           "wmr2017-annex-table-b.xls"),
     sheet = "DrugPolicy",
     range = "A2:F102"
   ) |>
@@ -110,7 +113,8 @@ get_wmr2017 <- function() {
   )
 
   # wmr2017c ####
-  wmr2017c <- readxl::read_excel(file.path(basePath, "wmr2017-annex-table-c.xls"),
+  wmr2017c <- readxl::read_excel(file.path(basePath,
+                                           "wmr2017-annex-table-c.xls"),
     sheet = "Funding",
     range = "A3:O286",
     col_names = c(
