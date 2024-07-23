@@ -1,14 +1,10 @@
 # whowmr
 
 This package contains datasets from the WHO World Malaria Report:
+`whowmr2017`, `whowmr2018`, ..., `whowmr2023`
+Each dataset is a list with a tibble for each sheet in the annexes of the 2017 to 2023 World Malaria Reports.
 
-* `whowmr2017`: Data from the 2017 World Malaria Report
-* `whowmr2018`: Data from the 2018 World Malaria Report
-* `whowmr2019`: Data from the 2019 World Malaria Report
-* `whowmr2020`: Data from the 2020 World Malaria Report
-* `whowmr2021`: Data from the 2021 World Malaria Report
-* `whowmr2022`: Data from the 2022 World Malaria Report
-* `whowmr2023`: Data from the 2023 World Malaria Report
+The scripts used to create the package datasets aim to preserve much of the original supporting information such as footnotes and comments.
 
 ## Installation
 
@@ -22,7 +18,7 @@ devtools::install_github("uct-masha/whowmr")
 
 ## Disclaimer
 
-This package is in no way affiliated with the World Health Organization. The data contained in this package is publicly available from the WHO World Malaria Report.
+This package is in no way supported or endorsed by the World Health Organization. The data contained in this package is publicly available from the WHO World Malaria Report and links to the original data and reports are given in the help for each dataset.
 
 ## Code of Conduct
 
