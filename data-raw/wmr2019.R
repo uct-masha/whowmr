@@ -313,7 +313,7 @@ get_wmr2019 <- function() {
                                  sheet="apendix_f_data",
                                  range="A8:J974",
                                  col_names = c(
-                                   "WHO region","Country",
+                                   "WHO region","Country/area",
                                    "Year",
                                    "Population at risk",
                                    paste0("Cases_", lup),
