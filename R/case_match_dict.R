@@ -4,7 +4,11 @@
 #'             and the values should be the new values
 #'
 #' @examples
-#' df |> dplyr::mutate(Footnotes=case_match_dict(Footnotes, dict=c("2"="footnote1", "5,6"="footnote 5. footnote6."))
+#' df |>
+#'   dplyr::mutate(Footnotes=case_match_dict(Footnotes,
+#'                                           dict=c(
+#'                                             "2"="footnote1",
+#'                                             "5,6"="footnote 5. footnote6."))
 case_match_dict <- function(.x, dict, trimFirst=TRUE) {
   if (trimFirst) {
     .x <- gsub("^\\s+|\\s+$", "", .x)
@@ -12,4 +16,3 @@ case_match_dict <- function(.x, dict, trimFirst=TRUE) {
   fnMap <- as.list(dict)
   factor(unname(fnMap[.x]), levels = unname(fnMap))
 }
-
