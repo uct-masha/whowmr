@@ -58,7 +58,7 @@ ensure_annex_dir_exists <- function(url, filename, removeZip=FALSE) {
 #'                 names of the list being the directory of the unzipped annex
 #'                 and the values being the file paths relative to that path.
 ensure_annex_dirs_exist <- function(years=2017:2023) {
-  checkmate::assert_subset(years, 2017:2023)
+  checkmate::assert_subset(years, 2017:2023, empty.ok = FALSE)
   filenames <- c("wmr2017-excel-annexes.zip",
                  "wmr2018-excel-annexes.zip",
                  "wmr2019-excel-annexes.zip",
@@ -73,7 +73,11 @@ ensure_annex_dirs_exist <- function(years=2017:2023) {
                  filenamesFiltered)
 
   fileTree <- seq_along(urls) |>
-    sapply(function(i) ensure_annex_dir_exists(urls[i], filenamesFiltered[i]), simplify=T)
+    sapply(function(i) ensure_annex_dir_exists(urls[i], filenamesFiltered[i]))
+
+  # We expect a named list of character vectors back. The names are the base
+  # directory for that years annexes and the values are the relative file paths.
+  checkmate::assert_list(fileTree, len=length(years), types="character", any.missing=FALSE)
 
   fileTree
 }
