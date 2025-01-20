@@ -12,9 +12,17 @@ The scripts used to create the package datasets aim to preserve much of the orig
 ## Usage
 
 To load the package and view the datasets:
+
 ``` r
 library(whowmr)
-# Policy information provided in the 2018 annexes:
+
+# Get pdf files for some recent World Malaria Reports
+get_reports(years=2024, outdir='.')
+
+# Get a quick high level view of the 2024 annex contents
+?wmr2024
+
+# Policy information provided in the 2018 annexes (See annex 4A):
 wmr2018$wmr2018a
 
 # Funding information provided in the 2021 annexes:
@@ -22,19 +30,11 @@ wmr2021$wmr2021c
 
 # Malaria deaths by country in 2024:
 wmr2024$wmr2024j
-
-# Get pdf files for some recent World Malaria Reports
-get_reports(years=2024, outdir='.')
-
-# Get a quick high level view of the 2024 report
-??whowmr::wmr2024
-
 ```
 
 ## Installation
 
 ``` r
-
 # Install the development version from GitHub
 pak::pak("uct-masha/whowmr")
 # or
