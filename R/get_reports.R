@@ -8,8 +8,9 @@
 #'
 #' @examples
 #' get_reports()
-get_reports <- function(years=2017:2023, outdir='.') {
-  urls <- list(w2023='https://iris.who.int/bitstream/handle/10665/374472/9789240086173-eng.pdf?sequence=1',
+get_reports <- function(years=2017:2024, outdir='.') {
+  urls <- list(w2024='https://iris.who.int/bitstream/handle/10665/379751/9789240104440-eng.pdf?sequence=1',
+               w2023='https://iris.who.int/bitstream/handle/10665/374472/9789240086173-eng.pdf?sequence=1',
                w2022='https://iris.who.int/bitstream/handle/10665/365169/9789240064898-eng.pdf?sequence=1',
                w2021='https://iris.who.int/bitstream/handle/10665/350147/9789240040496-eng.pdf?sequence=1',
                w2020='https://iris.who.int/bitstream/handle/10665/337660/9789240015791-eng.pdf?sequence=1',

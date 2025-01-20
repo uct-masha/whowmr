@@ -45,3 +45,7 @@
 
 - Renamed column `Country` in 2019 annex F to `Country/area` to match the
   other years.
+
+# whowmr 1.2024.2
+
+- Included the 2024 dataset.

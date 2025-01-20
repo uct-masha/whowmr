@@ -5,7 +5,7 @@
 # These functions are meant to be used in the wmr20xx.R scripts which ensure
 # that the local copy of the data is processed and stored.
 
-# Note: Data from 2017-2023 are about 6MB zipped and 14MB unzipped.
+# Note: Data from 2017-2024 are about 7MB zipped and 14MB unzipped.
 
 #' Ensure the unzipped annex exists for the given year(s)
 #'
@@ -31,11 +31,15 @@ ensure_annex_dir_exists <- function(url, filename, removeZip=FALSE) {
     # If the URL no longer works or the user is offline then we want to alert
     # them and let it fail:
     if (!file.exists(fpathZip)) {
-      tryCatch({
-        download.file(url, fpathZip)
-      }, error = function(e) {
-        stop(paste0("Failed to download ", url, " to ", fpathZip, ". Please check the URL and your internet connection."))
-      })
+      if (grepl("2024", filename)) {
+        download_and_zip_2024_annexes(fpathZip)
+      } else {
+        tryCatch({
+          download.file(url, fpathZip)
+        }, error = function(e) {
+          stop(paste0("Failed to download ", url, " to ", fpathZip, ". Please check the URL and your internet connection."))
+        })
+      }
     }
     # We also unzip the annexes to data-raw/unzipped
     zip::unzip(zipfile = fpathZip, exdir = fpathUnzipped)
@@ -57,15 +61,16 @@ ensure_annex_dir_exists <- function(url, filename, removeZip=FALSE) {
 #' @return fileTree: A named list of all files in the unzipped annexes, with the
 #'                 names of the list being the directory of the unzipped annex
 #'                 and the values being the file paths relative to that path.
-ensure_annex_dirs_exist <- function(years=2017:2023) {
-  checkmate::assert_subset(years, 2017:2023, empty.ok = FALSE)
+ensure_annex_dirs_exist <- function(years=2017:2024) {
+  checkmate::assert_subset(years, 2017:2024, empty.ok = FALSE)
   filenames <- c("wmr2017-excel-annexes.zip",
                  "wmr2018-excel-annexes.zip",
                  "wmr2019-excel-annexes.zip",
                  "wmr-2020-excel-annexes.zip",
                  "wmr2021-excel-annexes.zip",
                  "wmr2022-excel-annexes.zip",
-                 "wmr2023-excel-annexes.zip")
+                 "wmr2023-excel-annexes.zip",
+                 "wmr2024-excel-annexes.zip")
 
   filenamesFiltered <- filenames[grepl(paste0(years, collapse="|"), filenames)]
 
@@ -80,6 +85,36 @@ ensure_annex_dirs_exist <- function(years=2017:2023) {
   checkmate::assert_list(fileTree, len=length(years), types="character", any.missing=FALSE)
 
   fileTree
+}
+
+download_and_zip_2024_annexes <- function(fpathZip) {
+  # 2024 is a special case since the WHO website points to another url which
+  # contains each annex as a link rather than pointing to a zip file. We need
+  # to download each of these files and zip them up ourselves.
+  # To get the links to the files we open the url and look for links to annex_.*.xlsx
+  # files. We then download each of these files and zip them up.
+
+  # Get the html from the url
+  library(httr)
+  url <- "https://www.who.int/publications/m/item/annexes-world-malaria-report-2024"
+  # Read the html and parse out the xlsx links
+  htmlContent <- httr::GET(url) |> httr::content("text")
+  # Find the links to the annexes which look like https://cdn.who.int/media/docs/default-source/malaria/world-malaria-reports/wmr2024_annex_2.xlsx
+  # But there are multiple matches so we need to extract all of them
+  annexLinks <- stringr::str_extract_all(htmlContent, "(https://[^ ]+\\.xls[x]{0,1})")[[1]]
+  # Download each of the annexes
+  pathDownload <- fs::path_join(c(tempdir(), "wmr2024-annexes"))
+  fs::dir_create(pathDownload)
+  for (link in annexLinks) {
+    # Get the filename
+    fname <- fs::path_file(link)
+    # Download the file
+    download.file(link, file.path(pathDownload, fname), mode="wb")
+  }
+  # Zip up the files
+  zip::zipr(fpathZip, pathDownload)
+  # Remove the downloaded files
+  fs::dir_delete(pathDownload)
 }
 
 # wmr-2020-excel-annexes seemed to break the pattern so I wanted to analyse what

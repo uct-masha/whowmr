@@ -1,6 +1,30 @@
 #' @importFrom tibble tibble
 NULL
 
+#' World Health Organization World Malaria Report 2024
+#'
+#' Annex data from the World Health Organization World Malaria Report 2024.
+#' Note that Tanzania is typically split into Mainland and Zanzibar
+#'
+#' @format A list containing a tibble for each item in the annex:
+#' \describe{
+#'   \item{wmr2024_2}{p154: Number of ITNs distributed through campaigns in malaria endemic countries, 2021–2023}
+#'   \item{wmr2024a}{p190: Policy adoption, 2023.}
+#'   \item{wmr2024b}{p194: Antimalarial drug policy, 2023}
+#'   \item{wmr2024c}{p196: Funding for malaria control, 2021–2023}
+#'   \item{wmr2024d}{p208: Commodities distribution and coverage for malaria endemic countries, 2021–2023}
+#'   \item{wmr2024ea}{p214: Household survey results, 2017–2023, compiled through STATcompiler for the WHO African Region. Suggestion: use [STATCompiler](https://statcompiler.com) or [rdhs](https://cran.r-project.org/web/packages/rdhs/index.html) package instead.}
+#'   \item{wmr2024eb}{p216: Household survey results, 2017–2023, compiled through WHO calculations for the WHO African Region.}
+#'   \item{wmr2024f}{p218: Population denominator for case incidence and mortality rate, and estimated malaria cases and deaths, 2000–2023}
+#'   \item{wmr2024g}{p236: Population denominator for case incidence and mortality rate, and reported malaria cases by place of care, 2023. Be careful not to double count Tanzania which is split into Mainland and Zanzibar.}
+#'   \item{wmr2024h}{p240: Reported malaria cases by method of confirmation, 2015–2023}
+#'   \item{wmr2024i}{p270: Reported malaria cases by species, 2015–2023}
+#'   \item{wmr2024j}{p286: Reported malaria deaths, 2015–2023}
+#' }
+#' @source Report: \url{https://iris.who.int/bitstream/handle/10665/379751/9789240104440-eng.pdf?sequence=1}
+#' @source Annex: \url{https://www.who.int/publications/m/item/annexes-world-malaria-report-2024}
+"wmr2024"
+
 #' World Health Organization World Malaria Report 2023
 #'
 #' Annex data from the World Health Organization World Malaria Report 2023.
