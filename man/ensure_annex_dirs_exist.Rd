@@ -4,7 +4,7 @@
 \alias{ensure_annex_dirs_exist}
 \title{Ensure the unzipped annex exists for the given year(s)}
 \usage{
-ensure_annex_dirs_exist(years = 2017:2023)
+ensure_annex_dirs_exist(years = 2017:2024)
 }
 \arguments{
 \item{years:}{A numeric vector of years to download and unzip the annexes for}

@@ -4,7 +4,7 @@
 \alias{get_reports}
 \title{Download World Malaria Report PDFs}
 \usage{
-get_reports(years = 2017:2023, outdir = ".")
+get_reports(years = 2017:2024, outdir = ".")
 }
 \arguments{
 \item{years}{which years to download pdfs}

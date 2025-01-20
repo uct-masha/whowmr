@@ -11,10 +11,19 @@ case_match_dict(.x, dict, trimFirst = TRUE)
 
 \item{dict}{a named list - the names should correspond to the values in .x
 and the values should be the new values}
+
+\item{trimFirst}{whether to trim whitespace from the start and end of .x}
+}
+\value{
+a factor with the new values
 }
 \description{
 Helper function useful when mapping values in character strings
 }
 \examples{
-df |> dplyr::mutate(Footnotes=case_match_dict(Footnotes, dict=c("2"="footnote1", "5,6"="footnote 5. footnote6."))
+df |>
+  dplyr::mutate(Footnotes=case_match_dict(Footnotes,
+                                          dict=c(
+                                            "2"="footnote1",
+                                            "5,6"="footnote 5. footnote6."))
 }
