@@ -1,14 +1,39 @@
 # whowmr
 
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
 This package contains datasets from the WHO World Malaria Report:
 `whowmr2017`, `whowmr2018`, ..., `whowmr2024`
+
 Each dataset is a list with a tibble for each sheet in the annexes of the 2017 to 2024 World Malaria Reports.
 
 The scripts used to create the package datasets aim to preserve much of the original supporting information such as footnotes and comments.
 
+## Usage
+
+To load the package and view the datasets:
+``` r
+library(whowmr)
+# Policy information provided in the 2018 annexes:
+wmr2018$wmr2018a
+
+# Funding information provided in the 2021 annexes:
+wmr2021$wmr2021c
+
+# Malaria deaths by country in 2024:
+wmr2024$wmr2024j
+
+# Get pdf files for some recent World Malaria Reports
+get_reports(years=2024, outdir='.')
+
+# Get a quick high level view of the 2024 report
+??whowmr::wmr2024
+
+```
+
 ## Installation
 
-```R
+``` r
 
 # Install the development version from GitHub
 pak::pak("uct-masha/whowmr")
