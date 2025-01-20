@@ -2,6 +2,8 @@
 #' @param .x a vector to match against
 #' @param dict a named list - the names should correspond to the values in .x
 #'             and the values should be the new values
+#' @param trimFirst whether to trim whitespace from the start and end of .x
+#' @return a factor with the new values
 #'
 #' @examples
 #' df |>

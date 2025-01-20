@@ -513,7 +513,7 @@ get_wmr2023 <- function() {
   ) |>
     split_who_region(col_region_area = 1)
 
-  ## WMR2021J Assertions: ####
+  ## WMR2023J Assertions: ####
   check_who_dataframe(
     df = wmr2023j,
     rows = 95,

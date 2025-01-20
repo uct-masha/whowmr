@@ -492,7 +492,7 @@ get_wmr2022 <- function() {
   ) |>
     split_who_region(col_region_area = 1)
 
-  ## WMR2021J Assertions: ####
+  ## WMR2022J Assertions: ####
   check_who_dataframe(
     df = wmr2022j,
     rows = 96,
