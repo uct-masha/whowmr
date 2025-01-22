@@ -8,9 +8,6 @@ tags:
   - who
   - malaria
   - epidemiology
-author:
-  - "Jared Norman"^[Modelling and Simulation Hub, Africa, https://orcid.org/0000-0002-5692-999X]
-date: "2025-01-22"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{whowmr: A package for World Health Organization World Malaria Report Data}
