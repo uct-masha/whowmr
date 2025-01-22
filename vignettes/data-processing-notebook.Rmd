@@ -1,6 +1,10 @@
 ---
 title: "Data Processing Notebook"
-output: rmarkdown
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data Processing Notebook}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 editor_options: 
   markdown: 
     wrap: 72
