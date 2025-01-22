@@ -1,0 +1,58 @@
+---
+title: "whowmr: A package for World Health Organization World Malaria Report Data"
+subtitle: "JOSS paper (draft)"
+description: >
+  Paper (draft) to be published on The Journal of Open Source Software.
+tags:
+  - R
+  - who
+  - malaria
+  - epidemiology
+author:
+  - "Jared Norman"^[Modelling and Simulation Hub, Africa, https://orcid.org/0000-0002-5692-999X]
+date: "2025-01-22"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{whowmr: A package for World Health Organization World Malaria Report Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The World Health Organization (WHO) publishes a World Malaria Report annually since 2017. This report includes annexes in Excel format containing detailed data on various aspects of malaria epidemiology and control efforts. The `whowmr` package provides a user-friendly interface to access and analyze this data in R. The package includes processed versions of the annexes from the World Malaria Reports starting from 2017 and a function to download the PDF reports themselves.
+
+## Installation
+
+The development version of the `whowmr` package can be installed directly from GitHub using `pak` or `devtools`.
+
+```         
+pak::pak("uct-masha/whowmr")
+```
+
+or
+
+```         
+devtools::install_github("uct-masha/whowmr") 
+```
+
+## Usage
+
+Once installed, the package can be loaded using `library(whowmr)`. The package provides pre-processed datasets for each year's report (`whowmr2017`, `whowmr2018`, ..., `whowmr2024`). Each dataset is a list containing a tibble for each sheet in the corresponding year's annexes. The package strives to preserve much of the original formatting and annotations from the original reports.
+
+Here's an example of how to get a quick overview of the contents of the 2024 annexes:
+
+```         
+library(whowmr)
+?whowmr2024 
+```
+
+To access specific data from the annexes, use the appropriate dataset object and sheet name. For instance, `wmr2021$whowmr2021c` would provide the funding information from the 2021 report's annex 4C.
+
+The package also includes a function `get_reports(years=2017:2024, outdir='.')` to download PDF copies of the World Malaria Reports for the specified years. The reports are downloaded and saved in the specified output directory.
+
+## Disclaimer
+
+It is important to note that the `whowmr` package is not affiliated with or endorsed by the World Health Organization. The data originates from publicly available reports by the WHO, and links to the original reports are provided within the package documentation for each dataset.
+
+## Conclusion
+
+The `whowmr` package offers a convenient way to access, explore, and analyze data from the World Health Organization's World Malaria Reports in R. With its focus on user-friendliness and data preservation, the package facilitates research on malaria epidemiology and control efforts.
