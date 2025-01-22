@@ -4,6 +4,7 @@
 #' @param outdir the path to the directory where pdfs should be downloaded
 #'
 #' @return NULL
+#'
 #' @export
 #'
 #' @examples

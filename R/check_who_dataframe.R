@@ -1,4 +1,6 @@
 #' Check a dataframes dimensions and values to ensure it matches the underlying report
+#' If there is an issue an error is thrown. This is used in the data-raw/wmr20xx.R scripts
+#' to ensure the dataframes were created correctly.
 #'
 #' @param df a dataframe
 #' @param rows the number of rows expected in the dataframe
@@ -9,6 +11,7 @@
 #'                      `Country/area` columns.
 #' @param na_values a list with tuples corresponding to cells in df
 #' @param known_values a list with tuples corresponding to cells in df and their known values
+#' @return NULL
 check_who_dataframe <- function(df,
                                 rows,
                                 cols,

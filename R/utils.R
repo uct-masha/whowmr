@@ -2,6 +2,8 @@
 #'
 #' @param pkgs a vector of package names to check if they are installed
 #'
+#' @return NULL
+#'
 #' @examples
 #' stop_if_not_installed(c("readxl", "dplyr"))
 #' stop_if_not_installed()
