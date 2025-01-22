@@ -1,0 +1,18 @@
+{
+    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+    "type": "SoftwareSourceCode",
+    "author": [
+        {
+            "id": "http://orcid.org/0000-0002-5692-999X",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "Modelling and Simulation Hub, Africa (MASHA), Department of Statistics, University of Cape Town"
+            },
+            "familyName": "Norman",
+            "givenName": "Jared"
+        }
+    ],
+    "description": "Provides data from the annexes of the WHO World Malaria Reports in R.",
+    "name": "whowmr"
+}
