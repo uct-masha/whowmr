@@ -7,6 +7,7 @@ Authors@R:
              role = c("aut", "cre"),
              email = "jared.norman@uct.ac.za",
              comment = c(ORCID = "0000-0002-5692-999X")))
+Maintainer: Jared Norman <jared.norman@uct.ac.za>
 Description: The World Malaria Report is a document that has been released 
     annually by the World Health Organization since 2017. The document includes
     annexes in excel format. This package exposes a processed version of the
