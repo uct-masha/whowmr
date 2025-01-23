@@ -1,4 +1,4 @@
-#' Download World Malaria Report PDFs
+#' Download WHO World Malaria Report PDFs
 #'
 #' @param years which years to download pdfs
 #' @param outdir the path to the directory where pdfs should be downloaded
@@ -8,8 +8,8 @@
 #' @export
 #'
 #' @examples
-#' get_reports()
-get_reports <- function(years=2017:2024, outdir='.') {
+#' download_whowmr_reports()
+download_whowmr_reports <- function(years=2017:2024, outdir='.') {
   urls <- list(w2024='https://iris.who.int/bitstream/handle/10665/379751/9789240104440-eng.pdf?sequence=1',
                w2023='https://iris.who.int/bitstream/handle/10665/374472/9789240086173-eng.pdf?sequence=1',
                w2022='https://iris.who.int/bitstream/handle/10665/365169/9789240064898-eng.pdf?sequence=1',
