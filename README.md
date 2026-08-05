@@ -17,7 +17,7 @@ To load the package and view the datasets:
 library(whowmr)
 
 # Get pdf files for some recent World Malaria Reports
-get_reports(years=2024, outdir='.')
+download_wmr_reports(years=2024, outdir='.')
 
 # Get a quick high level view of the 2024 annex contents
 ?wmr2024

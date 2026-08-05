@@ -44,7 +44,7 @@ library(whowmr)
 
 To access specific data from the annexes, use the appropriate dataset object and sheet name. For instance, `wmr2021$whowmr2021c` would provide the funding information from the 2021 report's annex 4C.
 
-The package also includes a function `get_reports(years=2017:2024, outdir='.')` to download PDF copies of the World Malaria Reports for the specified years. The reports are downloaded and saved in the specified output directory.
+The package also includes a function `download_whowmr_reports(years=2017:2024, outdir='.')` to download PDF copies of the World Malaria Reports for the specified years. The reports are downloaded and saved in the specified output directory.
 
 ## Disclaimer
 
