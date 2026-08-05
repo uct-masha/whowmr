@@ -226,7 +226,7 @@ get_wmr2024 <- function() {
   # Note: eg, dollar symbol used inline denotes footnote.
   #       We chose not to handle this.
 
-  ## WMR2023D Assertions: ####
+  ## WMR2024D Assertions: ####
   check_who_dataframe(
     df = wmr2024d,
     rows = 255,  # it was 270 last year
@@ -496,7 +496,6 @@ get_wmr2024 <- function() {
   )
 
   # wmr2024i ####
-  who_regions <- c("African", "Americas", "Eastern Mediterranean", "European", "South-East Asia", "Western Pacific")
   wmr2024i <- readxl::read_excel(file.path(basePath, "wmr2024_annex_4i.xlsx"),
     sheet = "Annex_4I",
     range = "A4:K465",
