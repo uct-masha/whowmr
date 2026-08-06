@@ -1,4 +1,5 @@
 #' Check a dataframes dimensions and values to ensure it matches the underlying report
+#' 
 #' If there is an issue an error is thrown. This is used in the data-raw/wmr20xx.R scripts
 #' to ensure the dataframes were created correctly.
 #'

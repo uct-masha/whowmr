@@ -5,7 +5,7 @@
 This package contains datasets from the WHO World Malaria Report:
 `whowmr2017`, `whowmr2018`, ..., `whowmr2024`
 
-Each dataset is a list with a tibble for each sheet in the annexes of the 2017 to 2024 World Malaria Reports.
+Each dataset is a list with a tibble for each sheet in the annexes of the 2017 to 2025 World Malaria Reports.
 
 The scripts used to create the package datasets aim to preserve much of the original supporting information such as footnotes and comments.
 
@@ -17,7 +17,7 @@ To load the package and view the datasets:
 library(whowmr)
 
 # Get pdf files for some recent World Malaria Reports
-download_wmr_reports(years=2024, outdir='.')
+download_whowmr_reports(years=2024, outdir='.')
 
 # Get a quick high level view of the 2024 annex contents
 ?wmr2024

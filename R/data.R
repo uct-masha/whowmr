@@ -1,6 +1,33 @@
 #' @importFrom tibble tibble
 NULL
 
+#' World Health Organization World Malaria Report 2025
+#'
+#' Annex data from the World Health Organization World Malaria Report 2025.
+#' Note that Tanzania is typically split into Mainland and Zanzibar
+#'
+#' @format A list containing a tibble for each item in the annex:
+#' \describe{
+#'   \item{wmr2025_2}{p144: Number of ITNs distributed through campaigns in malaria endemic countries, 2022–2024}
+#'   \item{wmr2025a}{p180: Policy adoption, 2024}
+#'   \item{wmr2025b}{p184: Antimalarial drug policy in malaria endemic countries and areas, 2024}
+#'   \item{wmr2025ca}{p186: Household survey results, 2017–2024, compiled through STATcompiler for the WHO African Region. Suggestion: use [STATCompiler](https://statcompiler.com) or [rdhs](https://cran.r-project.org/web/packages/rdhs/index.html) package instead.}
+#'   \item{wmr2025cb}{p188: Household survey results, 2017–2024, compiled through WHO calculations for the WHO African Region.}
+#'   \item{wmr2025d}{p190: Malaria endemic countries and areas}
+#'   \item{wmr2025e}{p191: Countries and areas certified malaria free by WHO (1955–2025) and countries where malaria never existed or disappeared without specific measures}
+#'   \item{wmr2025f}{excl: Funding for malaria control, 2022–2024}
+#'   \item{wmr2025g}{excl: Commodities distribution and coverage for malaria endemic countries and areas, 2022–2024}
+#'   \item{wmr2025h}{excl: Population denominator for case incidence and mortality rate, and estimated malaria cases and deaths, 2000–2024}
+#'   \item{wmr2025i}{excl: Reported malaria cases by health sector for malaria endemic countries and areas, 2024}
+#'   \item{wmr2025j}{excl: Reported malaria cases by method of confirmation, 2015–2024}
+#'   \item{wmr2025k}{excl: Reported malaria cases by species, 2015–2024}
+#'   \item{wmr2025l}{excl: Reported malaria deaths, 2015–2024}
+#' }
+#' * Note: some items were included in the annex but not in the WHO report itself, so they are marked "excl" in the list above.
+#' @source Report: \url{https://iris.who.int/server/api/core/bitstreams/be20b8dc-cbfa-42a6-ad17-7679ceb75360/content}
+#' @source Annex: \url{https://www.who.int/publications/m/item/annexes-world-malaria-report-2025}
+"wmr2025"
+
 #' World Health Organization World Malaria Report 2024
 #'
 #' Annex data from the World Health Organization World Malaria Report 2024.

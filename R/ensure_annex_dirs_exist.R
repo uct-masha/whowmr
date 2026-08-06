@@ -32,7 +32,9 @@ ensure_annex_dir_exists <- function(url, filename, removeZip=FALSE) {
     # them and let it fail:
     if (!file.exists(fpathZip)) {
       if (grepl("2024", filename)) {
-        download_and_zip_2024_annexes(fpathZip)
+        download_and_zip_2024_and_newer_annexes(fpathZip, year=2024)
+      } else if (grepl("2025", filename)) {
+        download_and_zip_2024_and_newer_annexes(fpathZip, year=2025)
       } else {
         tryCatch({
           download.file(url, fpathZip)
@@ -61,8 +63,8 @@ ensure_annex_dir_exists <- function(url, filename, removeZip=FALSE) {
 #' @return fileTree: A named list of all files in the unzipped annexes, with the
 #'                 names of the list being the directory of the unzipped annex
 #'                 and the values being the file paths relative to that path.
-ensure_annex_dirs_exist <- function(years=2017:2024) {
-  checkmate::assert_subset(years, 2017:2024, empty.ok = FALSE)
+ensure_annex_dirs_exist <- function(years=2017:2025) {
+  checkmate::assert_subset(years, 2017:2025, empty.ok = FALSE)
   filenames <- c("wmr2017-excel-annexes.zip",
                  "wmr2018-excel-annexes.zip",
                  "wmr2019-excel-annexes.zip",
@@ -70,7 +72,8 @@ ensure_annex_dirs_exist <- function(years=2017:2024) {
                  "wmr2021-excel-annexes.zip",
                  "wmr2022-excel-annexes.zip",
                  "wmr2023-excel-annexes.zip",
-                 "wmr2024-excel-annexes.zip")
+                 "wmr2024-excel-annexes.zip",
+                 "wmr2025-excel-annexes.zip")
 
   filenamesFiltered <- filenames[grepl(paste0(years, collapse="|"), filenames)]
 
@@ -87,8 +90,8 @@ ensure_annex_dirs_exist <- function(years=2017:2024) {
   fileTree
 }
 
-download_and_zip_2024_annexes <- function(fpathZip) {
-  # 2024 is a special case since the WHO website points to another url which
+download_and_zip_2024_and_newer_annexes <- function(fpathZip, year) {
+  # 2024&2025 are special cases since the WHO website points to another url which
   # contains each annex as a link rather than pointing to a zip file. We need
   # to download each of these files and zip them up ourselves.
   # To get the links to the files we open the url and look for links to annex_.*.xlsx
@@ -96,14 +99,14 @@ download_and_zip_2024_annexes <- function(fpathZip) {
 
   # Get the html from the url
   library(httr)
-  url <- "https://www.who.int/publications/m/item/annexes-world-malaria-report-2024"
+  url <- glue::glue("https://www.who.int/publications/m/item/annexes-world-malaria-report-{year}")
   # Read the html and parse out the xlsx links
   htmlContent <- httr::GET(url) |> httr::content("text")
-  # Find the links to the annexes which look like https://cdn.who.int/media/docs/default-source/malaria/world-malaria-reports/wmr2024_annex_2.xlsx
+  # Find the links to the annexes which look like https://cdn.who.int/media/docs/default-source/malaria/world-malaria-reports/wmr{year}_annex_2.xlsx
   # But there are multiple matches so we need to extract all of them
   annexLinks <- stringr::str_extract_all(htmlContent, "(https://[^ ]+\\.xls[x]{0,1})")[[1]]
   # Download each of the annexes
-  pathDownload <- fs::path_join(c(tempdir(), "wmr2024-annexes"))
+  pathDownload <- fs::path_join(c(tempdir(), glue::glue("wmr{year}-annexes")))
   fs::dir_create(pathDownload)
   for (link in annexLinks) {
     # Get the filename
