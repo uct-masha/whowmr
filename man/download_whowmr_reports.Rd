@@ -15,5 +15,8 @@ download_whowmr_reports(years = 2017:2025, outdir = ".")
 Download WHO World Malaria Report PDFs
 }
 \examples{
+\dontrun{
+# Downloads PDFs from the WHO website into `outdir`.
 download_whowmr_reports()
+}
 }

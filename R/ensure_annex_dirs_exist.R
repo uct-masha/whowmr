@@ -9,13 +9,14 @@
 
 #' Ensure the unzipped annex exists for the given year(s)
 #'
-#' @param url: The URL to download the annex from
-#' @param filename: The filename of the zip file to be saved in
+#' @param url The URL to download the annex from
+#' @param filename The filename of the zip file to be saved in
 #'                  data-raw/downloads and unzipped as a directory in
 #'                  data-raw/unzipped
-#' @param removeZip: Whether to remove the zip file after unzipping
+#' @param removeZip Whether to remove the zip file after unzipping
 #'
 #' @return named list of files in the unzipped annex
+#' @keywords internal
 ensure_annex_dir_exists <- function(url, filename, removeZip=FALSE) {
   fpathZip <- file.path('data-raw/downloads', filename)
   fpathUnzipped <- file.path('data-raw/unzipped', gsub(".zip", "", filename))
@@ -58,11 +59,12 @@ ensure_annex_dir_exists <- function(url, filename, removeZip=FALSE) {
 
 #' Ensure the unzipped annex exists for the given year(s)
 #'
-#' @param years: A numeric vector of years to download and unzip the annexes for
+#' @param years A numeric vector of years to download and unzip the annexes for
 #'
 #' @return fileTree: A named list of all files in the unzipped annexes, with the
 #'                 names of the list being the directory of the unzipped annex
 #'                 and the values being the file paths relative to that path.
+#' @keywords internal
 ensure_annex_dirs_exist <- function(years=2017:2025) {
   checkmate::assert_subset(years, 2017:2025, empty.ok = FALSE)
   filenames <- c("wmr2017-excel-annexes.zip",
@@ -98,7 +100,6 @@ download_and_zip_2024_and_newer_annexes <- function(fpathZip, year) {
   # files. We then download each of these files and zip them up.
 
   # Get the html from the url
-  library(httr)
   url <- glue::glue("https://www.who.int/publications/m/item/annexes-world-malaria-report-{year}")
   # Read the html and parse out the xlsx links
   htmlContent <- httr::GET(url) |> httr::content("text")

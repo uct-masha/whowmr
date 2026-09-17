@@ -13,6 +13,7 @@
 #' @param na_values a list with tuples corresponding to cells in df
 #' @param known_values a list with tuples corresponding to cells in df and their known values
 #' @return NULL
+#' @keywords internal
 check_who_dataframe <- function(df,
                                 rows,
                                 cols,

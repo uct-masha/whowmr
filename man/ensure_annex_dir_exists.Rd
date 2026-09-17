@@ -7,13 +7,13 @@
 ensure_annex_dir_exists(url, filename, removeZip = FALSE)
 }
 \arguments{
-\item{url:}{The URL to download the annex from}
+\item{url}{The URL to download the annex from}
 
-\item{filename:}{The filename of the zip file to be saved in
+\item{filename}{The filename of the zip file to be saved in
 data-raw/downloads and unzipped as a directory in
 data-raw/unzipped}
 
-\item{removeZip:}{Whether to remove the zip file after unzipping}
+\item{removeZip}{Whether to remove the zip file after unzipping}
 }
 \value{
 named list of files in the unzipped annex
@@ -21,3 +21,4 @@ named list of files in the unzipped annex
 \description{
 Ensure the unzipped annex exists for the given year(s)
 }
+\keyword{internal}

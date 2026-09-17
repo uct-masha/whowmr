@@ -32,8 +32,11 @@ Suggests:
     fs,
     glue,
     httr,
+    purrr,
     readxl,
+    rmarkdown,
     stringr,
     tidyr,
     tidyselect,
     zip
+VignetteBuilder: knitr

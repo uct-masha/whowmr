@@ -1,4 +1,5 @@
 #' @importFrom tibble tibble
+#' @importFrom utils download.file head tail
 NULL
 
 #' World Health Organization World Malaria Report 2025

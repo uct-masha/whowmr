@@ -1,12 +1,18 @@
 #' Stop if suggested packages are not installed
 #'
-#' @param pkgs a vector of package names to check if they are installed
+#' @param ... package names to check if they are installed. If none are supplied,
+#'            the `Suggests` field of DESCRIPTION is used.
 #'
 #' @return NULL
 #'
 #' @examples
+#' \dontrun{
+#' # Internal helper: not exported. The no-argument form reads the
+#' # `Suggests` field of DESCRIPTION in the working directory.
 #' stop_if_not_installed(c("readxl", "dplyr"))
 #' stop_if_not_installed()
+#' }
+#' @keywords internal
 stop_if_not_installed <- function(...) {
   args <- list(...)
   # If pkgs was not supplied, get it from DESCRIPTION

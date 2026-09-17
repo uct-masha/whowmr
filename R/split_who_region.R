@@ -11,8 +11,16 @@
 #' @return the dataframe with the `col_region_area` column split into `region_name` and `area_name` columns.
 #'
 #' @examples
-#' wmr2017a <- readxl::read_excel("wmr2017-excel-annexes/wmr2017-annex-table-a.xls", range = "A2:Q102")
-#' split_who_region(wmr2017a, col_region_area=1, region_name="WHO Region", area_name="Country/area")
+#' \dontrun{
+#' # Internal helper: not exported, and requires a downloaded annex file.
+#' wmr2017a <- readxl::read_excel(
+#'   "wmr2017-excel-annexes/wmr2017-annex-table-a.xls",
+#'   range = "A2:Q102"
+#' )
+#' split_who_region(wmr2017a, col_region_area = 1,
+#'                  region_name = "WHO Region", area_name = "Country/area")
+#' }
+#' @keywords internal
 split_who_region <- function(df,
                              col_region_area=1,
                              region_name="WHO Region",

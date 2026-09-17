@@ -7,7 +7,7 @@
 ensure_annex_dirs_exist(years = 2017:2025)
 }
 \arguments{
-\item{years:}{A numeric vector of years to download and unzip the annexes for}
+\item{years}{A numeric vector of years to download and unzip the annexes for}
 }
 \value{
 fileTree: A named list of all files in the unzipped annexes, with the
@@ -17,3 +17,4 @@ and the values being the file paths relative to that path.
 \description{
 Ensure the unzipped annex exists for the given year(s)
 }
+\keyword{internal}

@@ -8,6 +8,7 @@
 #' @param stopAtFirstError if TRUE (the default), then the function stops at the first error, otherwise it continues
 #'
 #' @return the `data.frame` with the columns converted to numeric
+#' @keywords internal
 try_make_numeric <- function(df, cols, na=c("-", ".", ""), str_remove=NULL, warn=TRUE, stopAtFirstError=TRUE) {
   badCols <- character(0)
   if (is.numeric(cols)) {

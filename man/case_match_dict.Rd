@@ -21,9 +21,14 @@ a factor with the new values
 Helper function useful when mapping values in character strings
 }
 \examples{
+\dontrun{
+# Internal helper: not exported, shown here for contributors.
+df <- tibble::tibble(Footnotes = c("2", "5,6", NA))
 df |>
-  dplyr::mutate(Footnotes=case_match_dict(Footnotes,
-                                          dict=c(
-                                            "2"="footnote1",
-                                            "5,6"="footnote 5. footnote6."))
+  dplyr::mutate(Footnotes = case_match_dict(
+    Footnotes,
+    dict = c("2" = "footnote1", "5,6" = "footnote 5. footnote6.")
+  ))
 }
+}
+\keyword{internal}

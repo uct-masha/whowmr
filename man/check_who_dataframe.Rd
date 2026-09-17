@@ -33,3 +33,4 @@ expected in each column. Used for the \verb{WHO region} and
 If there is an issue an error is thrown. This is used in the data-raw/wmr20xx.R scripts
 to ensure the dataframes were created correctly.
 }
+\keyword{internal}

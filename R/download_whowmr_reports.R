@@ -8,7 +8,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' # Downloads PDFs from the WHO website into `outdir`.
 #' download_whowmr_reports()
+#' }
 download_whowmr_reports <- function(years=2017:2025, outdir='.') {
   urls <- list(
     w2025 = 'https://iris.who.int/server/api/core/bitstreams/be20b8dc-cbfa-42a6-ad17-7679ceb75360/content',

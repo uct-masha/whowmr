@@ -7,12 +7,18 @@
 stop_if_not_installed(...)
 }
 \arguments{
-\item{pkgs}{a vector of package names to check if they are installed}
+\item{...}{package names to check if they are installed. If none are supplied,
+the \code{Suggests} field of DESCRIPTION is used.}
 }
 \description{
 Stop if suggested packages are not installed
 }
 \examples{
+\dontrun{
+# Internal helper: not exported. The no-argument form reads the
+# `Suggests` field of DESCRIPTION in the working directory.
 stop_if_not_installed(c("readxl", "dplyr"))
 stop_if_not_installed()
 }
+}
+\keyword{internal}

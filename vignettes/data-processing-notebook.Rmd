@@ -45,10 +45,11 @@ data in all three cases, straightforward calculations of totals may lead
 to duplicate counting of Tanzania's data due to this inclusion of
 sub-regions.
 
-A function is included in this package which attempts to split out the
-`WHO Region/Country/Area` column in a dataset. Anecdotally it seems the
-best approach is to label columns which are all upper-case characters as
-"WHO Region" and all other columns as "Country/Area".
+The function `split_who_region` is included in this package which
+attempts to split out the `WHO Region/Country/Area` column in a dataset.
+Anecdotally it seems the best approach is to label columns which are all
+upper-case characters as "WHO Region" and all other columns as
+"Country/Area".
 
 ## Annex A: Policy logical columns
 
@@ -75,6 +76,22 @@ name was subsequently changed to "Government Footnotes" (altering
 backward compatibility of previous package versions). To reflect this
 significant change, the major version number was incremented when
 including 2019 data.
+
+## Annex F - Malaria cases and deaths (estimated)
+As pointed out by Nick White the historical estimates change year on year
+This can be confirmed with the following code which looks at 2016 deaths for Nigeria:
+```{r}
+getAnnex<-function(year,annex){eval(parse(text=paste0('whowmr::wmr',year,'$wmr',year,annex)))}
+Country <- "Nigeria"
+purrr::map_dbl(2017:2023, ~{
+    a <- 'f'
+    if (.x==2017) a<-'fa'
+    an <- getAnnex(.x,a)
+    if (.x==2019) an <- an |> dplyr::rename(`Country/area`=Country)
+    dplyr::filter(an, Year==2016, `Country/area` |> stringr::str_starts(Country))$Deaths_Point |> as.numeric()
+})
+```
+The estimates vary between 90378 (2018 estimate) and 172102 (2023 estimate) for 2016. This is a significant difference!
 
 ## Annex E - malaria indicator surveys from StatCompiler
 

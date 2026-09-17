@@ -32,3 +32,4 @@ the \code{data.frame} with the columns converted to numeric
 \description{
 Try to convert columns to numeric, replacing any na values with NA
 }
+\keyword{internal}

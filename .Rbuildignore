@@ -4,3 +4,8 @@
 ^pdf$
 ^scripts$
 ^LICENSE\.md$
+^CONTRIBUTING\.md$
+^NextSteps$
+^codemeta\.json$
+^\.\.Rcheck$
+^\.Rhistory$

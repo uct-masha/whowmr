@@ -2,3 +2,6 @@
 
 export(download_whowmr_reports)
 importFrom(tibble,tibble)
+importFrom(utils,download.file)
+importFrom(utils,head)
+importFrom(utils,tail)

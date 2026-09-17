@@ -32,6 +32,14 @@ the dataframe with the \code{col_region_area} column split into \code{region_nam
 Split the contents of \verb{WHO region\\\\nCountry/area} column in an annex sheet.
 }
 \examples{
-wmr2017a <- readxl::read_excel("wmr2017-excel-annexes/wmr2017-annex-table-a.xls", range = "A2:Q102")
-split_who_region(wmr2017a, col_region_area=1, region_name="WHO Region", area_name="Country/area")
+\dontrun{
+# Internal helper: not exported, and requires a downloaded annex file.
+wmr2017a <- readxl::read_excel(
+  "wmr2017-excel-annexes/wmr2017-annex-table-a.xls",
+  range = "A2:Q102"
+)
+split_who_region(wmr2017a, col_region_area = 1,
+                 region_name = "WHO Region", area_name = "Country/area")
 }
+}
+\keyword{internal}
