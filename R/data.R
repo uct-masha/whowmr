@@ -48,6 +48,8 @@ NULL
 #'   \item{wmr2024h}{p240: Reported malaria cases by method of confirmation, 2015–2023}
 #'   \item{wmr2024i}{p270: Reported malaria cases by species, 2015–2023}
 #'   \item{wmr2024j}{p286: Reported malaria deaths, 2015–2023}
+#'   \item{wmr2024k}{p289: Malaria endemic countries and areas}
+#'   \item{wmr2024l}{p290: Countries and territories certified malaria free by WHO (1955–2024) and countries where malaria never existed or disappeared without specific measures. Note that "Azerbaijan" and "Tajikistan" carry a trailing non-breaking space in the WHO source, which is preserved here.}
 #' }
 #' @source Report: \url{https://iris.who.int/bitstream/handle/10665/379751/9789240104440-eng.pdf?sequence=1}
 #' @source Annex: \url{https://www.who.int/publications/m/item/annexes-world-malaria-report-2024}

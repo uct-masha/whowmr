@@ -554,6 +554,97 @@ get_wmr2024 <- function() {
                       )
   )
 
+  # wmr2024k ####
+  # Unlike most annexes, the region rows here are written out in full
+  # ("WHO African Region") rather than in the upper-case form the rest of the
+  # package uses, so split_who_region() cannot be applied: it identifies a
+  # region row by the absence of lower-case letters. We map the labels
+  # explicitly instead. Note the source says "WHO American Region" where the
+  # rest of the package (and the WHO's own later reports) say "AMERICAS".
+  who_regions_2024k <- c(
+    "WHO African Region"               = "AFRICAN",
+    "WHO American Region"              = "AMERICAS",
+    "WHO Eastern Mediterranean Region" = "EASTERN MEDITERRANEAN",
+    "WHO South-East Asia Region"       = "SOUTH-EAST ASIA",
+    "WHO Western Pacific Region"       = "WESTERN PACIFIC"
+  )
+  wmr2024k <- readxl::read_excel(file.path(basePath, "wmr2024_annex_4k.xlsx"),
+    sheet = "Annex_4K",
+    range = "A2:A89",
+    col_names = "Country/area",
+    na = c("", "-", "–")
+  ) |>
+    dplyr::mutate(
+      `WHO Region` = unname(who_regions_2024k[`Country/area`]),
+      .before = 1
+    ) |>
+    tidyr::fill(`WHO Region`, .direction = "down") |>
+    dplyr::filter(!(`Country/area` %in% names(who_regions_2024k)))
+  # FOOTNOTES:
+  # 1 In the World malaria report 2024, a country or area is considered endemic
+  #   when it has reported at least one indigenous case since 2021.
+
+  ## WMR2024K Assertions: ####
+  check_who_dataframe(df = wmr2024k,
+                      rows = 83,
+                      cols = 2,
+                      unique_values = list(
+                        `WHO Region` = 5,
+                        `Country/area` = 83
+                      ),
+                      known_values = list(
+                        # First row, and the first row of the second region
+                        c(1, "Country/area", "Angola"),
+                        c(44, "WHO Region", "EASTERN MEDITERRANEAN"),
+                        c(44, "Country/area", "Afghanistan"),
+                        # The last possible value in the last column
+                        c(83, "Country/area", "Viet Nam")
+                      )
+  )
+
+  # wmr2024l ####
+  # Footnotes live in A113:A118 and are reproduced below rather than read in.
+  wmr2024l <- readxl::read_excel(file.path(basePath, "wmr2024_annex_4l.xlsx"),
+    sheet = "Annex_4L",
+    range = "A4:D110",
+    na = c("")
+  ) |>
+    dplyr::rename(`WHO Region` = 1, `Country/area` = 2) |>
+    tidyr::fill(`WHO Region`, .direction = "down")
+  # FOOTNOTES:
+  # 1 Until 1987, the register was known as the "WHO official register of areas
+  #   where malaria eradication has been achieved".
+  # 2 For the purpose of this publication, reference to countries also includes
+  #   territories.
+  # 3 The Bolivarian Republic of Venezuela (northern part) was certified in 1961
+  #   but reverted to endemic status.
+  # 4 Taiwan (China) was certified malaria-free in 1965.
+  # 5 La Reunion is a French overseas region which was certified malaria-free in 1979.
+  # 6 These countries are added to the Supplementary list of areas where malaria
+  #   never existed or disappeared without specific measures.
+  # NOTE: "Azerbaijan" and "Tajikistan" carry a trailing non-breaking space
+  # (U+00A0) in the WHO source. This is preserved here, as it is in wmr2025e,
+  # but it will break naive joins on `Country/area`.
+
+  ## WMR2024L Assertions: ####
+  check_who_dataframe(df = wmr2024l,
+                      rows = 106,
+                      cols = 4,
+                      unique_values = list(
+                        `WHO Region` = 6,
+                        `Country/area` = 106
+                      ),
+                      na_values = list(
+                        c(3, "Countries certified malaria-free1,2,3,4,5") # Lesotho
+                      ),
+                      known_values = list(
+                        # Cabo Verde, certified malaria free in 2024
+                        c(2, "Countries certified malaria-free1,2,3,4,5", 2024),
+                        # The last possible value in the last column
+                        c(106, "Countries where malaria never existed or disappeared without specific measures6", 2012)
+                      )
+  )
+
   list(
     # Annex 2 – Number of ITNs distributed through campaigns in malaria endemic
     # countries, 2021–2023
@@ -583,7 +674,12 @@ get_wmr2024 <- function() {
     # I. Reported malaria cases by species, 2015–2023
     wmr2024i = wmr2024i,
     # J. Reported malaria deaths, 2015–2023
-    wmr2024j = wmr2024j
+    wmr2024j = wmr2024j,
+    # K. Malaria endemic countries and areas
+    wmr2024k = wmr2024k,
+    # L. Countries and territories certified malaria free by WHO (1955–2024) and
+    # countries where malaria never existed or disappeared without specific measures
+    wmr2024l = wmr2024l
   )
 }
 
